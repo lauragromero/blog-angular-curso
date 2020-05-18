@@ -1,0 +1,14 @@
+<p> POST</p>
+
+<div>
+    <h3>{{post.title}}</h3>
+    <span>{{post.username}}</span>
+    <p>{{post.text}}</p>
+    <ul>
+        <li *ngFor="let comment of post.comments" >
+            <h4>{{comment.username}}</h4>
+            <p>{{comment.comment}}</p>
+            
+        </li>
+    </ul>
+</div>

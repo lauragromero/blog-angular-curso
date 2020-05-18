@@ -1,8 +1,10 @@
 <p>LISTA DE POST</p>
 <ul>
-    <li *ngFor="let post of (allPost$ | async)">
+    <li *ngFor="let post of (allPost$ | async)" (click)="onSelect(post._id)"  >
         <h3>{{post.title}}</h3>
         <h4>{{post.nickname}}</h4>
         <p>{{post.text}}</p>
     </li>
 </ul>
+
+

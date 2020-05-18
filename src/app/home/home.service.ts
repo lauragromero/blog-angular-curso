@@ -10,7 +10,6 @@ import { HomeProxyService } from './home-proxy.service';
   providedIn: 'root'
 })
 export class HomeService {
-  id: string;
   constructor( private homeProxyService: HomeProxyService) { }
 
   getAllPost(): Observable<PostDTO[]>{
