@@ -1,0 +1,11 @@
+<p>post-list works!</p>
+<a [routerLink]= "['/admin/create']">NUEVO POST</a>
+<ul>
+    <li *ngFor="let post of (allPost$ | async)"  >
+        <h3>{{post.title}}</h3>
+        <h4>{{post.nickname}}</h4>
+        <p>{{post.text}}</p>
+        <button (click)="onSubmit(post._id)">EDITAR</button>
+    </li>
+
+</ul>

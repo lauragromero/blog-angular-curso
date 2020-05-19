@@ -1,20 +1,26 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { LoginProxyService } from './login-proxy.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private autService: LoginProxyService) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable< HttpEvent<any>> {
     const token: string = localStorage.getItem('token');
-    console.log(token);
-    const reqAuth = req.clone(
-      {headers: req.headers.set('Authorization', 'Bearer ' + token)}
-    );
-    console.log(reqAuth);
+    let reqAuth = req;
+
+    if (!req.url.includes('/login') || !req.url.includes('/user') ){
+      reqAuth = req.clone(
+        {headers: req.headers.set('Authorization', 'Bearer ' + token)}
+      );
+      console.log(token, reqAuth);
+    }
+
     return next.handle(reqAuth);
   }
 }

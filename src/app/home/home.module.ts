@@ -9,6 +9,7 @@ import { HomePostComponent } from './home-post/home-post.component';
 const ROUTES: Routes = [
   {path: '', component: AppHomeComponent,
     children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomePostComponent},
       {path: 'home/:id', component: DetailPostComponent}
   ]}];

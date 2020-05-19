@@ -19,7 +19,6 @@ export class LoginProxyService {
         Authorization: 'basic' + auth
       })
     };
-    console.log(auth, httpOptions);
     return this.httpClient.post<TokenDTO>('http://localhost:3002/login', '', httpOptions);
   }
 }
