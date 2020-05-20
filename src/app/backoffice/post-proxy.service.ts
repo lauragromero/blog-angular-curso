@@ -11,6 +11,7 @@ import { PostDTO } from './post-dto';
 })
 export class PostProxyService {
 
+
   constructor(private httpClient: HttpClient) { }
 
   getAllPost(): Observable<PostDTO[]>{
@@ -18,18 +19,28 @@ export class PostProxyService {
   }
 
   getPostById(id): Observable<PostDTO>{
-
     return this.httpClient.get<PostDTO>('http://localhost:3002/post/' + id);
   }
 
 
-  createPost(body: object): Observable<any>{
-    return this.httpClient.post('http://localhost:3002/post', body)
+  createPost(body: object): Observable<PostDTO>{
+    return this.httpClient.post<PostDTO>('http://localhost:3002/post', body);
+  }
+
+  deletePost(id): Observable<any> {
+    console.log(id);
+    return this.httpClient.delete(`http://localhost:3002/post/${id}`)
     .pipe(
       catchError(this.errorHandler));
   }
 
 
+
+  updatePost(id: number, post: PostDTO): Observable<PostDTO>{
+    return this.httpClient.put<PostDTO>(`http://localhost:3002/post/${id}`, {post})
+    .pipe(
+      catchError(this.errorHandler));
+  }
   errorHandler(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

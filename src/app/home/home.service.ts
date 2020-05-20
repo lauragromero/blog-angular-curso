@@ -15,4 +15,7 @@ export class HomeService {
   getAllPost(): Observable<PostDTO[]>{
     return this.homeProxyService.getAllPost();
   }
+  getPostById(id): Observable<PostDTO>{
+    return this.homeProxyService.getPostById(id);
+  }
 }

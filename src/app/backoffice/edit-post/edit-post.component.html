@@ -1,0 +1,18 @@
+<p>edit-post works!</p>
+<div>
+    <button [routerLink]="['/admin']"> Volver Lista Post</button>
+    <h3>{{(post$ | async)?.title}}</h3>
+    <button>EDITAR</button>
+    <button>AÑADIR COMENTARIO</button>
+    <br>
+    <span>{{(post$ | async)?.username}}</span>
+    <p>{{(post$ | async)?.text}}}</p>
+    <ul> Comments:
+        <li *ngFor="let comment of (post$ | async)?.comments" >
+            <h4>{{comment?.username}}</h4> 
+            <p>{{comment?.comment}}</p>
+            <button >Borrar Comentario</button>
+            <button>Editar Comentario</button>
+     </li>
+    </ul> 
+</div>

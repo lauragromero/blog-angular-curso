@@ -12,4 +12,8 @@ export class HomeProxyService {
   getAllPost(): Observable<PostDTO[]>{
     return this.httpClient.get<PostDTO[]>('http://localhost:3002/post');
   }
+
+  getPostById(id): Observable<PostDTO>{
+    return this.httpClient.get<PostDTO>('http://localhost:3002/post/' + id);
+  }
 }

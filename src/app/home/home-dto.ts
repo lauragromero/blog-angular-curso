@@ -6,7 +6,12 @@ export interface PostDTO{
     authorId: string;
     text: string;
     date: Date;
-    comments: Comment[];
+    comments?: CommentDTO[];
 }
-
-
+export interface CommentDTO {
+    nickname: string;
+    username: string;
+    comment: string;
+    date: string;
+    _id: string;
+}

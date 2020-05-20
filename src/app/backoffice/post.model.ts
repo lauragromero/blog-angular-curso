@@ -1,4 +1,4 @@
-export interface PostDTO{
+export interface Post {
     _id: string;
     username: string;
     nickname: string;
@@ -6,13 +6,13 @@ export interface PostDTO{
     authorId: string;
     text: string;
     date: Date;
-    comments?: CommentDTO[];
-}
+    comments?: Comment[];
+  }
 
-export interface CommentDTO {
+export interface Comment {
     nickname: string;
     username: string;
     comment: string;
     date: string;
     _id: string;
-}
+  }

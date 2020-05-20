@@ -14,11 +14,11 @@ export class AuthInterceptorService implements HttpInterceptor {
     const token: string = localStorage.getItem('token');
     let reqAuth = req;
 
-    if (!req.url.includes('/login') || !req.url.includes('/user') ){
+    if (!req.url.includes('/login')){
       reqAuth = req.clone(
         {headers: req.headers.set('Authorization', 'Bearer ' + token)}
       );
-      console.log(token, reqAuth);
+      console.log(reqAuth);
     }
 
     return next.handle(reqAuth);

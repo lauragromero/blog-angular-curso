@@ -1,14 +1,13 @@
 <p> POST</p>
 
 <div>
-    <h3>{{post.title}}</h3>
-    <span>{{post.username}}</span>
-    <p>{{post.text}}</p>
-    <ul>
-        <li *ngFor="let comment of post.comments" >
-            <h4>{{comment.username}}</h4>
-            <p>{{comment.comment}}</p>
-            
-        </li>
-    </ul>
+    <h3>{{(post$ | async)?.title}}</h3>
+    <span>{{(post$ | async)?.username}}</span>
+    <p>{{(post$ | async)?.text}}</p>
+    <ul> Comments:
+        <li *ngFor="let comment of (post$ | async)?.comments" >
+            <h4>{{comment?.nickname}}</h4> 
+            <p>{{comment?.comment}}</p>
+     </li>
+    </ul> 
 </div>
