@@ -13,6 +13,7 @@ export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
 
 
+
   constructor(private service: PostService,
               private router: Router) { }
 
@@ -26,9 +27,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost(){
-    this.service.createPost(this.postForm.value).subscribe(res => {
-      console.log('Post added');
-    });
+    this.service.createPost(this.postForm.value)
+    .subscribe(
+      () => {
+        console.log('Proceso completado');
+      }
+    );
     }
 
 }

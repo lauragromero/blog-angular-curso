@@ -2,8 +2,9 @@
 <a [routerLink]= "['/admin/create']">NUEVO POST</a>
 <ul>
     <li *ngFor="let post of (allPost$ | async)"  >
-        <h3>{{post.title}}</h3>
+        <h2>{{post.title}}</h2>
         <h4>{{post.nickname}}</h4>
+        <span>{{post.username}}</span>
         <p>{{post.text}}</p>
         <button [routerLink]= "'/admin/' + post._id ">EDITAR</button>
         <button  (click)= "deletePost(post)">BORRAR</button>

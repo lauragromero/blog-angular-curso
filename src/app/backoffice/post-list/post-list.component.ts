@@ -29,8 +29,4 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  onSubmit(postID){
-    this.router.navigate(['backoffice', postID]);
-  }
-
 }

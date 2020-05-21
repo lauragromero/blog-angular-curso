@@ -7,7 +7,7 @@ export interface Post {
     text: string;
     date: Date;
     comments?: Comment[];
-  }
+}
 
 export interface Comment {
     nickname: string;

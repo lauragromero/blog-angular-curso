@@ -1,11 +1,14 @@
 <p>create-post works!</p>
+<button [routerLink]="['/admin']" type="button">VOLVER A LA LISTA DE POST</button>
 
-<form [formGroup]= "postForm"> 
-    Username: <input type="text" formControlName= "username"/>
-    Nickname:  <input type="text" formControlName= "nickname"/>
-    Title:  <input type="text" formControlName= "title"/>
-    Text:  <input type="text" formControlName= "text"/>
+<form  [formGroup]= "postForm"> 
+    <label for="username">Username:</label>
+    <input name="username" type="text" formControlName= "username"/>
+    <label for="nickname">Nickname:</label>
+    <input name= "nickname" type="text" formControlName= "nickname"/>
+    <label for="title">Title:</label>
+    <input name= "title" type="text" formControlName= "title"/>
+    <label for="text">Text:</label>
+    <textarea name= "text" type="text" formControlName= "text"></textarea>
     <button type="submit" (click)="createPost()">Crear Nuevo Post</button>
 </form>
-
-{{postForm.value.username}}
