@@ -23,8 +23,11 @@ export class PostProxyService {
   }
 
 
-  createPost(body: object): Observable<PostDTO>{
-    return this.httpClient.post<PostDTO>('http://localhost:3002/post', body);
+  createPost(post: PostDTO): Observable<PostDTO>{
+    console.log(post);
+    return this.httpClient.post<PostDTO>('http://localhost:3002/post', post)
+    .pipe(
+      catchError(this.errorHandler));
   }
 
   deletePost(id): Observable<any> {

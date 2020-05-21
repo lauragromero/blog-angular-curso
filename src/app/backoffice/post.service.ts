@@ -29,11 +29,17 @@ export class PostService {
   }
 
   createPost(post: Post): Observable<Post>{
+    console.log(post);
     return this.proxyPost.createPost(this.adaptModelTODTO(post)).pipe(
-      map((postResult: PostDTO) => { return {
-      postId: postResult._id,
-      ...post };
-      }) );
+      map((postDTO: PostDTO) => {
+        return postDTO;
+      })
+    );
+    // return this.proxyPost.createPost(this.adaptModelTODTO(post)).pipe(
+    //   map((postResult: PostDTO) => { return {
+    //   postId: postResult._id,
+    //   ...post };
+    //   }) );
   }
 
   deletePost(id): Observable<Post> {

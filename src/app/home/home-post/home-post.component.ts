@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PostDTO } from '../home-dto';
-import { HomeService } from '../home.service';
+import { Post } from 'src/app/backoffice/post.model';
+import { PostService } from 'src/app/backoffice/post.service';
 
 
 @Component({
@@ -12,14 +12,14 @@ import { HomeService } from '../home.service';
 })
 export class HomePostComponent implements OnInit {
 
-  allPost$: Observable<PostDTO[]>;
+  allPost$: Observable<Post[]>;
 
   constructor(
-    private homeService: HomeService,
+    private service: PostService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.allPost$ = this.homeService.getAllPost();
+    this.allPost$ = this.service.getAllPost();
     console.log(this.allPost$);
   }
 

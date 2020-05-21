@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -16,18 +15,18 @@ export class PostListComponent implements OnInit {
   allPost$: Observable<Post[]>;
 
   constructor(
-    private store: PostStoreService,
     private service: PostService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.store.init();
-    this.allPost$ = this.store.get$();
+    this.allPost$ = this.service.getAllPost();
   }
 
   deletePost(post: Post) {
-    this.store.delete$(post._id);
-    console.log('Post deleted!');
+    this.service.deletePost(post._id).subscribe(res => {
+      console.log('Post deleted');
+      console.log(res);
+    });
   }
 
   onSubmit(postID){

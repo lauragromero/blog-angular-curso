@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PostStoreService } from '../post-store.service';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -12,7 +12,9 @@ export class CreatePostComponent implements OnInit {
 
   postForm: FormGroup;
 
-  constructor(private store: PostStoreService, private router: Router) { }
+
+  constructor(private service: PostService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.postForm = new FormGroup({
@@ -24,8 +26,10 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost(){
-    this.store.create$(this.postForm.value);
-    console.log('Post created!');  }
+    this.service.createPost(this.postForm.value).subscribe(res => {
+      console.log('Post added');
+    });
+    }
 
 }
 
