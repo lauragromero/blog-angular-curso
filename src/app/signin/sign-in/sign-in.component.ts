@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { SigninService } from '../signin.service';
 
 
@@ -9,8 +10,9 @@ import { SigninService } from '../signin.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
  signInForm: FormGroup;
+ sub: Subscription;
 
   constructor( private service: SigninService,
                private router: Router) { }
@@ -24,11 +26,15 @@ export class SignInComponent implements OnInit {
   }
 
   createUser(){
-    return this.service.createUser(this.signInForm.value).subscribe(res => {
+    this.sub = this.service.createUser(this.signInForm.value).subscribe(res => {
       console.log('User added');
       this.router.navigateByUrl('/login');
     });
-}
-
+  }
+  ngOnDestroy(){
+    if (this.sub){
+      this.sub.unsubscribe();
+    }
+  }
 
 }

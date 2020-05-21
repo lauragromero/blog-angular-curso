@@ -13,7 +13,6 @@ export class LoginService {
               private router: Router, ) { }
 
   login(username: string, password: string): void{
-
     this.proxy.login(username, password).subscribe(
     (tokenDTO: TokenDTO) => {
       localStorage.setItem('token', tokenDTO.token);

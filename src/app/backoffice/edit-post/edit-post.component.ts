@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
@@ -28,7 +28,8 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private service: PostService) { }
+    private service: PostService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.isEdit = false;

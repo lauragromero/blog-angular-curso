@@ -57,7 +57,7 @@ export class PostService {
       }));
   }
 
-  deleteComment(idComment): Observable<Comment>{
+  deleteComment(idComment: number): Observable<Comment>{
     return this.proxyPost.deleteComment(idComment).pipe(
       map(commentDTO => this.adaptCommentDTOtoModel(commentDTO))
     );

@@ -1,7 +1,10 @@
 <p>sign-in works!</p>
 <form [formGroup]= "signInForm">
-    Username: <input type= "text" formControlName= "username"/>
-    Nickname: <input type= "text" formControlName= "nickname"/>
-    Password: <input type= "password" formControlName = "password"/>
-    <button (click)= "createUser()">Sign In</button>
+    <label for="username">Username:</label>
+    <input  name= "username" type= "text" formControlName= "username"/>
+    <label for="username">Nickname:</label>
+    <input name="nickname" type= "text" formControlName= "nickname"/>
+    <label for="password">Password</label>
+    <input  name= "password" type= "password" formControlName = "password"/>
+    <button type="submit" (click)= "createUser()">Sign In</button>
 </form>
