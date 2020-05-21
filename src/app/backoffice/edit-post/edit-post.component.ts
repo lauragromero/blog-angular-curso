@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -18,7 +17,6 @@ export class EditPostComponent implements OnInit {
   post$: Observable<Post>;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: PostStoreService,
     private service: PostService,
     private router: Router) { }
 
