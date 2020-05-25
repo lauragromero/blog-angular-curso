@@ -15,7 +15,8 @@ import { SigninModule } from './signin/signin.module';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component : AppComponent},
+  {path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
   {path: 'login', component: LoginComponent},
   {path: 'signin', component: SignInComponent},
   {path: 'admin',

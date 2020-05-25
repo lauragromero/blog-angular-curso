@@ -13,6 +13,7 @@ import { SigninService } from '../signin.service';
 export class SignInComponent implements OnInit, OnDestroy {
  signInForm: FormGroup;
  sub: Subscription;
+ error: string;
 
   constructor( private service: SigninService,
                private router: Router) { }
@@ -29,8 +30,13 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.sub = this.service.createUser(this.signInForm.value).subscribe(res => {
       console.log('User added');
       this.router.navigateByUrl('/login');
+      console.log(res);
+    }, err => {
+      this.error = err;
+      console.log('Usuario ya registrado');
     });
   }
+
   ngOnDestroy(){
     if (this.sub){
       this.sub.unsubscribe();
