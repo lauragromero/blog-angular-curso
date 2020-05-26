@@ -50,20 +50,20 @@ export class PostService {
     );
   }
 
-  addComment(id: number, comment: Comment): Observable<Comment>{
+  addComment(id, comment: Comment): Observable<Comment>{
     return this.proxyPost.addComment(id, this.adaptCommentModeltoDTO(comment)).pipe(
       map((commentDTO: CommentDTO) => {
         return commentDTO;
       }));
   }
 
-  deleteComment(idComment: number): Observable<Comment>{
+  deleteComment(idComment): Observable<Comment>{
     return this.proxyPost.deleteComment(idComment).pipe(
       map(commentDTO => this.adaptCommentDTOtoModel(commentDTO))
     );
   }
 
-  updateComment(idComment: number, comment: Comment): Observable<Comment>{
+  updateComment(idComment, comment: Comment): Observable<Comment>{
     return this.proxyPost.updateComment(idComment, this.adaptCommentModeltoDTO(comment)).pipe(
       map(commentDTO => this.adaptCommentDTOtoModel(commentDTO))
     );

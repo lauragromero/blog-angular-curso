@@ -21,48 +21,44 @@ export class PostProxyService {
   }
 
   getPostById(id): Observable<PostDTO>{
-    return this.httpClient.get<PostDTO>('http://localhost:3002/post/' + id)
+    return this.httpClient.get<PostDTO>(`http://localhost:3002/post/${id}`)
     .pipe(
       catchError(this.errorHandler));
   }
 
 
   createPost(post: PostDTO): Observable<PostDTO>{
-    console.log(post);
     return this.httpClient.post<PostDTO>('http://localhost:3002/post', post)
     .pipe(
       catchError(this.errorHandler));
   }
 
   deletePost(id): Observable<any> {
-    console.log(id);
     return this.httpClient.delete(`http://localhost:3002/post/${id}`)
     .pipe(
       catchError(this.errorHandler));
   }
 
-  updatePost(id: number, post: PostDTO): Observable<PostDTO>{
-    console.log(post);
+  updatePost(id, post: PostDTO): Observable<PostDTO>{
     return this.httpClient.put<PostDTO>(`http://localhost:3002/post/${id}`, post)
     .pipe(
       catchError(this.errorHandler));
   }
 
-  addComment(id: number, comment: CommentDTO): Observable<CommentDTO>{
-    console.log(comment);
+  addComment(id, comment: CommentDTO): Observable<CommentDTO>{
     return this.httpClient.put<CommentDTO>(`http://localhost:3002/post/${id}/comment`, comment)
     .pipe(
       catchError(this.errorHandler));
   }
 
-  deleteComment(idComment: number): Observable<CommentDTO>{
+  deleteComment(idComment): Observable<CommentDTO>{
     return this.httpClient.delete<CommentDTO>(`http://localhost:3002/comment/${idComment}`)
     .pipe(
       catchError(this.errorHandler));
 
   }
 
-  updateComment(idComment: number, comment: CommentDTO): Observable<CommentDTO>{
+  updateComment(idComment, comment: CommentDTO): Observable<CommentDTO>{
     return this.httpClient.put<CommentDTO>(`http://localhost:3002/comment/${idComment}`, comment)
     .pipe(
       catchError(this.errorHandler));

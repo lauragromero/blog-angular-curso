@@ -13,6 +13,6 @@ export interface Comment {
     nickname: string;
     username: string;
     comment: string;
-    date: string;
+    date: Date;
     _id: string;
   }

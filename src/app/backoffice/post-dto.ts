@@ -13,6 +13,6 @@ export interface CommentDTO {
     nickname: string;
     username: string;
     comment: string;
-    date: string;
+    date: Date;
     _id: string;
 }
