@@ -2,6 +2,7 @@
 <ul>
     <li *ngFor="let post of (allPost$ | async)"   >
         <h3>{{post.title}}</h3>
+        <span>{{post.date | date: 'medium'}}</span>
         <h4>{{post.nickname}}</h4>
         <p>{{post.text}}</p>
         <button type="button" (click)="onSelect(post._id)">Detalles</button>

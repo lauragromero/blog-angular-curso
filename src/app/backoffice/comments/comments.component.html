@@ -1,0 +1,15 @@
+
+<h4>{{comment.username}}</h4> 
+<p>{{comment.comment}}</p>
+<button type="button" (click)="deleteComment(comment?._id)" >Borrar Comentario</button>
+<button (click)= "isShow()">Editar Comentario</button>
+<div *ngIf="show" class="updateComment">
+    <form  class= "updateComment" [formGroup]= "updateCommentForm"> 
+        <label for="username">Username:</label>
+        <input name="username" type="text" formControlName= "username"/>
+        <label for="nickname">Nickname:</label>
+        <input name= "nickname" type="text" formControlName= "nickname"/>
+        <label for="text">Comment:</label>
+        <textarea name= "comment" type="text" formControlName= "comment"></textarea>
+        <button type="submit" (click)="updateComment(comment?._id)" [disabled]= "!updateCommentForm.valid">UPDATE</button>
+    </form>

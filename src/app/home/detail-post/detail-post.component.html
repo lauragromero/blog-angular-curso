@@ -2,7 +2,9 @@
 
 <div>
     <h3>{{(post$ | async)?.title}}</h3>
-    <span>{{(post$ | async)?.username}}</span>
+    <span>{{(post$| async).date| date: 'medium'}}</span>
+
+    <p>{{(post$ | async)?.username}}</p>
     <p>{{(post$ | async)?.text}}</p>
 
     <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>

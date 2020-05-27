@@ -16,15 +16,11 @@ export class EditPostComponent implements OnInit, OnDestroy {
   id: string;
   subUpdate: Subscription;
   subAddComment: Subscription;
-  subDeleteComment: Subscription;
-  subUpdateComment: Subscription;
   post$: Observable<Post>;
   updateForm: FormGroup;
   commentForm: FormGroup;
-  updateCommentForm: FormGroup;
   isEdit: boolean;
   isAdded: boolean;
-  isUpdate: boolean;
   index: number;
 
   constructor(
@@ -33,9 +29,6 @@ export class EditPostComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.isEdit = false;
-    this.isAdded = false;
-    this.isUpdate = false;
     this.id = this.activatedRoute.snapshot.params.id;
     this.post$ = this.service.getPostById(this.id);
     this.updateForm = new FormGroup({
@@ -49,23 +42,16 @@ export class EditPostComponent implements OnInit, OnDestroy {
       nickname : new FormControl ('', Validators.required),
       comment: new FormControl ('', Validators.required),
     });
-    this.updateCommentForm = new FormGroup({
-      username: new FormControl ('', Validators.required),
-      nickname : new FormControl ('', Validators.required),
-      comment: new FormControl ('', Validators.required),
-    });
+
 
   }
   commentAdd(){
-    this.isAdded = true;
+    this.isAdded = !this.isAdded;
   }
   editPost(){
-    this.isEdit = true;
+    this.isEdit = !this.isEdit;
   }
-  isUpdateComment(index){
-    console.log(index);
-    this.isUpdate = true;
-  }
+
   updatePost(){
     this.subUpdate = this.service.updatePost(this.id, this.updateForm.value).subscribe(res =>
     console.log('post actualizado'));
@@ -81,17 +67,6 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
   }
 
-  deleteComment(idComment){
-    console.log(typeof(idComment), idComment);
-    this.subDeleteComment = this.service.deleteComment(idComment).subscribe(res =>
-      console.log('comentario eliminado'));
-
-  }
-  updateComment(idComment){
-    this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
-      console.log('Update comment'));
-
-  }
 
   ngOnDestroy() {
     if (this.subUpdate){
@@ -99,12 +74,6 @@ export class EditPostComponent implements OnInit, OnDestroy {
     }
     if (this.subAddComment){
       this.subAddComment.unsubscribe();
-    }
-    if (this.subDeleteComment){
-      this.subDeleteComment.unsubscribe();
-    }
-    if (this.subUpdateComment){
-      this.subUpdateComment.unsubscribe();
     }
 
 }

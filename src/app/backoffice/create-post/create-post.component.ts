@@ -32,6 +32,7 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     this.service.createPost(this.postForm.value)
     .subscribe(
       () => {
+        this.router.navigateByUrl ('/admin');
         console.log('Proceso completado');
       }
     );
