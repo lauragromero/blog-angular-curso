@@ -6,6 +6,7 @@ import { AppPostComponent } from './app-post/app-post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { PostListComponent } from './post-list/post-list.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 const ROUTES: Routes = [
@@ -19,7 +20,7 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [PostListComponent, CreatePostComponent, AppPostComponent, EditPostComponent],
+  declarations: [PostListComponent, CreatePostComponent, AppPostComponent, EditPostComponent, CommentsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,12 +1,11 @@
 <h2>POST AND COMMENTS</h2>
-
 <div>
     <button [routerLink]="['/admin']"> Volver Lista Post</button>
     <h3>{{(post$ | async)?.title}}</h3>
     <button  type="button" (click)= "editPost()">EDITAR</button>
     <button type="button" (click)= "commentAdd()">AÑADIR COMENTARIO</button>
     <br>
-    <h4>{{(post$ | async)?.date}}</h4>
+    <h4>{{(post$ | async)?.date | date: 'medium'}}</h4>
     <p>{{(post$ | async)?.username}}</p>
     <p>{{(post$ | async)?.text}}</p>
     <div *ngIf="isEdit" class="edit">
@@ -32,32 +31,13 @@
             <textarea name= "comment" type="text" formControlName= "comment"></textarea>
             <button type="submit" (click)="addComment()" [disabled]= "!commentForm.valid">Añadir</button>
         </form>
-    </div>    
+    </div>  
     
-    <div *ngIf="(post$ |async)?.comments?.length>0; then list else error"></div>
-    <ng-template #list>
-        <ul> Comments:
-        <li *ngFor="let comment of (post$ | async)?.comments let i = index" >
-            <h4>{{comment?.username}}</h4> 
-            <p>{{comment?.comment}}</p>
-            <button type="button" (click)="deleteComment(comment?._id)" >Borrar Comentario</button>
-            <button (click)= "isUpdateComment(i)">Editar Comentario</button>
-            <div *ngIf="isUpdate" class="updateComment">
-                <form  class= "updateComment" [formGroup]= "updateCommentForm"> 
-                    <label for="username">Username:</label>
-                    <input name="username" type="text" formControlName= "username"/>
-                    <label for="nickname">Nickname:</label>
-                    <input name= "nickname" type="text" formControlName= "nickname"/>
-                    <label for="text">Comment:</label>
-                    <textarea name= "comment" type="text" formControlName= "comment"></textarea>
-                    <button type="submit" (click)="updateComment(comment?._id)" [disabled]= "!updateCommentForm.valid">UPDATE</button>
-                </form>
-            </div>    
-     </li>
-    </ul> 
-    </ng-template>
-    <ng-template #error>No hay comentarios</ng-template>
+    <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
+        <ng-template #okList>
+            <span>COMENTARIOS:</span>
+                <app-comments *ngFor="let comment of (post$ | async)?.comments let i = index" [comment]="comment"></app-comments>
+        </ng-template>
+        <ng-template #error>No hay comentarios</ng-template>  
+ </div>
 
-   
-    
-</div>
