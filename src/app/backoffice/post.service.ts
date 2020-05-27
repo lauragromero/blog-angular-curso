@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { CommentDTO, PostDTO } from './post-dto';
 import { PostProxyService } from './post-proxy.service';
