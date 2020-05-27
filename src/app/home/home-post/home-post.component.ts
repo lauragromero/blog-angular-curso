@@ -20,7 +20,6 @@ export class HomePostComponent implements OnInit {
 
   ngOnInit(): void {
     this.allPost$ = this.service.getAllPost();
-    console.log(this.allPost$);
   }
 
   onSelect(postID){

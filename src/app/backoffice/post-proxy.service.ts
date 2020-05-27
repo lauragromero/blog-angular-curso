@@ -46,9 +46,7 @@ export class PostProxyService {
   }
 
   addComment(id, comment: CommentDTO): Observable<CommentDTO>{
-    return this.httpClient.put<CommentDTO>(`http://localhost:3002/post/${id}/comment`, comment)
-    .pipe(
-      catchError(this.errorHandler));
+    return this.httpClient.put<CommentDTO>(`http://localhost:3002/post/${id}/comment`, comment);
   }
 
   deleteComment(idComment): Observable<CommentDTO>{
@@ -68,11 +66,10 @@ export class PostProxyService {
   errorHandler(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-       // Get client-side error
        errorMessage = error.error.message;
      } else {
-       // Get server-side error
-       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+       errorMessage = `Error Code: ${error.status} Message: ${error.message}`;
+       console.log(error.message);
      }
     console.log(errorMessage);
     return throwError(errorMessage);

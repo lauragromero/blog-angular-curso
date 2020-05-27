@@ -25,7 +25,6 @@ export class PostListComponent implements OnInit {
   deletePost(post: Post) {
     this.service.deletePost(post._id).subscribe(res => {
       console.log('Post deleted');
-      console.log(res);
     });
   }
 

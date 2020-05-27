@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from '../post.model';
@@ -13,7 +13,7 @@ import { PostService } from '../post.service';
 })
 export class EditPostComponent implements OnInit, OnDestroy {
 
-  id: number;
+  id: string;
   subUpdate: Subscription;
   subAddComment: Subscription;
   subDeleteComment: Subscription;
@@ -25,6 +25,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   isEdit: boolean;
   isAdded: boolean;
   isUpdate: boolean;
+  index: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,20 +39,20 @@ export class EditPostComponent implements OnInit, OnDestroy {
     this.id = this.activatedRoute.snapshot.params.id;
     this.post$ = this.service.getPostById(this.id);
     this.updateForm = new FormGroup({
-      username: new FormControl (''),
-      nickname : new FormControl (''),
-      title : new FormControl (''),
-      text : new FormControl ('')
+      username: new FormControl ('', Validators.required),
+      nickname : new FormControl ('', Validators.required),
+      title : new FormControl ('', Validators.required),
+      text : new FormControl ('', Validators.required)
     });
     this.commentForm = new FormGroup({
-      username: new FormControl (''),
-      nickname : new FormControl (''),
-      comment: new FormControl (''),
+      username: new FormControl ('', Validators.required),
+      nickname : new FormControl ('', Validators.required),
+      comment: new FormControl ('', Validators.required),
     });
     this.updateCommentForm = new FormGroup({
-      username: new FormControl (''),
-      nickname : new FormControl (''),
-      comment: new FormControl (''),
+      username: new FormControl ('', Validators.required),
+      nickname : new FormControl ('', Validators.required),
+      comment: new FormControl ('', Validators.required),
     });
 
   }
@@ -61,28 +62,34 @@ export class EditPostComponent implements OnInit, OnDestroy {
   editPost(){
     this.isEdit = true;
   }
-  isUpdateComment(){
+  isUpdateComment(index){
+    console.log(index);
     this.isUpdate = true;
   }
   updatePost(){
     this.subUpdate = this.service.updatePost(this.id, this.updateForm.value).subscribe(res =>
-    console.log('post actualizado', res));
+    console.log('post actualizado'));
     console.log(this.updateForm.value);
   }
 
   addComment(){
-    this.subAddComment = this.service.addComment(this.id, this.commentForm.value).subscribe(res =>
-      console.log('comentario añadido', res));
+    this.subAddComment = this.service.addComment(this.id, this.commentForm.value).subscribe(res => {
+      console.log('comentario añadido'); },
+      err => {
+        console.log(err.error.message);
+      } );
+
   }
 
   deleteComment(idComment){
+    console.log(typeof(idComment), idComment);
     this.subDeleteComment = this.service.deleteComment(idComment).subscribe(res =>
       console.log('comentario eliminado'));
 
   }
   updateComment(idComment){
     this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
-      console.log('Update comment', res));
+      console.log('Update comment'));
 
   }
 

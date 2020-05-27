@@ -6,7 +6,7 @@
     <input name="nickname" type= "text" formControlName= "nickname"/>
     <label for="password">Password</label>
     <input  name= "password" type= "password" formControlName = "password"/>
-    <button type="submit" (click)= "createUser()">Sign In</button>
+    <button type="submit" (click)= "createUser()" [disabled]= "!signInForm.valid">Sign In</button>
 </form>
 
 <span>{{error}}</span>

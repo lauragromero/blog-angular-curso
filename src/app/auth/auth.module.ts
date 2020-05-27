@@ -3,16 +3,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, LogoutComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule
-  ], exports: [LoginComponent]
+  ], exports: [LoginComponent, LogoutComponent]
 })
 export class AuthModule { }

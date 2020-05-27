@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SigninService } from '../signin.service';
@@ -20,9 +20,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.signInForm = new FormGroup({
-      username: new FormControl (''),
-      nickname: new FormControl (''),
-      password : new FormControl ('')
+      username: new FormControl ('', Validators.required),
+      nickname: new FormControl ('', Validators.required),
+      password : new FormControl ('', [ Validators.required, Validators.minLength(4)])
     });
   }
 
@@ -32,8 +32,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/login');
       console.log(res);
     }, err => {
-      this.error = err;
-      console.log('Usuario ya registrado');
+      this.error = err.error.message;
     });
   }
 

@@ -29,41 +29,41 @@ describe('PostProxyService', () => {
 
   it('should verify get post bt Id request', () => {
     service.getPostById(FAKE_ID).subscribe(
-      postDTO => expect(postDTO).toBe(FAKE_POSTS[0])
+      postDTO => expect(postDTO).toBe(FAKE_POST)
     );
     const request = httpMock.expectOne(`http://localhost:3002/post/${FAKE_ID}`);
     expect(request.request.method).toEqual('GET');
-    request.flush(FAKE_POSTS[0]);
+    request.flush(FAKE_POST);
     httpMock.verify();
   });
 
   it('should verify create a post request', () => {
-    service.createPost(FAKE_POSTS[0]).subscribe(
-      postDTO => expect(postDTO).toBe(FAKE_POSTS[0])
+    service.createPost(FAKE_POST).subscribe(
+      postDTO => expect(postDTO).toBe(FAKE_POST)
     );
     const request = httpMock.expectOne('http://localhost:3002/post');
     expect(request.request.method).toEqual('POST');
-    request.flush(FAKE_POSTS[0]);
+    request.flush(FAKE_POST);
     httpMock.verify();
   });
 
   it('should verify delete a post request', () => {
     service.deletePost(FAKE_ID).subscribe(
-      postDTO => expect(postDTO).toBe(FAKE_POSTS[0])
+      postDTO => expect(postDTO).toBe(FAKE_POST)
     );
     const request = httpMock.expectOne(`http://localhost:3002/post/${FAKE_ID}`);
     expect(request.request.method).toEqual('DELETE');
-    request.flush(FAKE_POSTS[0]);
+    request.flush(FAKE_POST);
     httpMock.verify();
   });
 
   it('should verify update a post request', () => {
-    service.updatePost(FAKE_ID, FAKE_POSTS[0]).subscribe(
-      postDTO => expect(postDTO).toBe(FAKE_POSTS[0])
+    service.updatePost(FAKE_ID, FAKE_POST).subscribe(
+      postDTO => expect(postDTO).toBe(FAKE_POST)
     );
     const request = httpMock.expectOne(`http://localhost:3002/post/${FAKE_ID}`);
     expect(request.request.method).toEqual('PUT');
-    request.flush(FAKE_POSTS[0]);
+    request.flush(FAKE_POST);
     httpMock.verify();
   });
 
@@ -110,7 +110,19 @@ date: new Date(),
 comments: []
 }];
 
-export const FAKE_ID = FAKE_POSTS[0]._id;
+export const FAKE_ID = '5ea875cbd75089137edf05a3';
+
+export const FAKE_POST = {
+  _id: '5ea875cbd75089137edf05a3',
+username: 'Lola',
+nickname: 'Lolita',
+authorId: '5ea85d72e489160fda0fdf6c',
+title: 'Comentado el tiempo tan inusual que estamos teniendo',
+text: 'Hace calorcito por el día pero fresquito por la noche',
+date: new Date(),
+comments: []
+
+};
 
 export const FAKE_COMMENT = {
   _id: '5ebd27c5649acf0435c5ee3d',

@@ -10,7 +10,6 @@ export class LoginAuthService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const token = localStorage.getItem('token');
-    console.log(token);
     if (token) { return true;
     } else {
     this.router.navigateByUrl('/login', {queryParams: {returnUrl: state.url}}); return false;

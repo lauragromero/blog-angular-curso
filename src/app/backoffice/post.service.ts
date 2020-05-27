@@ -24,7 +24,7 @@ export class PostService {
       );
   }
 
-  getPostById(id: number): Observable<Post> { return this.proxyPost.getPostById(id).pipe(
+  getPostById(id): Observable<Post> { return this.proxyPost.getPostById(id).pipe(
     map(postDTO => this.adaptDTOToModel(postDTO)) );
   }
 
@@ -43,7 +43,7 @@ export class PostService {
     map(postDTO => this.adaptDTOToModel(postDTO)) );
     }
 
-  updatePost(id: number, post: Post): Observable<Post>{
+  updatePost(id, post: Post): Observable<Post>{
     console.log(id, post);
     return this.proxyPost.updatePost(id, this.adaptModelTODTO(post)).pipe(
       map(postDTO => this.adaptDTOToModel(postDTO))
