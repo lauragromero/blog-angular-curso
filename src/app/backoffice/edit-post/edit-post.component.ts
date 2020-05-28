@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -22,10 +23,12 @@ export class EditPostComponent implements OnInit, OnDestroy {
   isEdit: boolean;
   isAdded: boolean;
   index: number;
+  comments: [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private service: PostService,
+    private store: PostStoreService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -53,9 +56,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   }
 
   updatePost(){
-    this.subUpdate = this.service.updatePost(this.id, this.updateForm.value).subscribe(res =>
-    console.log('post actualizado'));
-    console.log(this.updateForm.value);
+   this.store.update$(this.id, this.updateForm.value);
   }
 
   addComment(){
@@ -64,6 +65,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
       err => {
         console.log(err.error.message);
       } );
+
 
   }
 

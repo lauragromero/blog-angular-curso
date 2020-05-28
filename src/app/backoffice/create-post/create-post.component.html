@@ -1,7 +1,5 @@
-<p>create-post works!</p>
 <button [routerLink]="['/admin']" type="button">VOLVER A LA LISTA DE POST</button>
-
-<form  [formGroup]= "postForm"> 
+<form [formGroup]= "postForm"> 
     <label for="username">Username:</label>
     <input name="username" type="text" formControlName= "username"/>
     <label for="nickname">Nickname:</label>
@@ -10,5 +8,5 @@
     <input name= "title" type="text" formControlName= "title"/>
     <label for="text">Text:</label>
     <textarea name= "text" type="text" formControlName= "text"></textarea>
-    <button type="submit" (click)="createPost()">Crear Nuevo Post</button>
+    <button (click)="createPost()" [routerLink]="['/admin']">Crear Nuevo Post</button>
 </form>

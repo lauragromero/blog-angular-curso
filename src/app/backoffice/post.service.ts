@@ -24,8 +24,9 @@ export class PostService {
       );
   }
 
-  getPostById(id): Observable<Post> { return this.proxyPost.getPostById(id).pipe(
-    map(postDTO => this.adaptDTOToModel(postDTO)) );
+  getPostById(id): Observable<Post> {
+    return this.proxyPost.getPostById(id).pipe(
+    map(postDTO => this.adaptDTOToModel(postDTO)));
   }
 
   createPost(post: Post): Observable<Post>{

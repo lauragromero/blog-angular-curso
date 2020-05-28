@@ -6,7 +6,7 @@
         <h4>{{post.nickname}}</h4>
         <span>{{post.username}}</span>
         <p>{{post.text}}</p>
-        <button [routerLink]= "'/admin/' + post._id ">EDITAR</button>
+        <button [routerLink]= "['/admin/' + post._id]">EDITAR</button>
         <button  (click)= "deletePost(post)">BORRAR</button>
     </li>
 </ul>

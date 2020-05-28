@@ -1,8 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { CommentStoreService } from '../comment-store.service';
 import { Comment } from '../post.model';
 import { PostService } from '../post.service';
+
 
 @Component({
   selector: 'app-comments',
@@ -17,7 +19,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   subUpdateComment: Subscription;
   show: boolean;
 
-  constructor( private service: PostService, ) {
+  constructor( private service: PostService, private store: CommentStoreService) {
     this.updateCommentForm = new FormGroup({
       username: new FormControl ('', Validators.required),
       nickname : new FormControl ('', Validators.required),
@@ -33,10 +35,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.show = !this.show;
   }
   deleteComment(idComment){
-    console.log(typeof(idComment), idComment);
-    this.subDeleteComment = this.service.deleteComment(idComment).subscribe(res =>
-      console.log('comentario eliminado'));
-
+   this.store.delete$(idComment);
   }
   updateComment(idComment){
     this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
