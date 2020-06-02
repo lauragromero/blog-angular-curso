@@ -19,7 +19,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   subUpdateComment: Subscription;
   show: boolean;
 
-  constructor( private service: PostService, private store: CommentStoreService) {
+  constructor( private service: PostService,
+               private store: CommentStoreService) {
     this.updateCommentForm = new FormGroup({
       username: new FormControl ('', Validators.required),
       nickname : new FormControl ('', Validators.required),
@@ -28,18 +29,19 @@ export class CommentsComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    console.log(this.comment);
   }
 
   isShow(){
     this.show = !this.show;
   }
   deleteComment(idComment){
-   this.store.delete$(idComment);
+    this.store.delete$(idComment);
+  // this.service.deleteComment(idComment);
   }
-  updateComment(idComment){
-    this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
-      console.log('Update comment'));
+  async updateComment(idComment){
+    await this.store.update$(idComment, this.updateCommentForm.value);
+    // this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
+    // console.log('Update comment'));
 
   }
 

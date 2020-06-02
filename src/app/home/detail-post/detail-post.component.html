@@ -2,7 +2,7 @@
 
 <div>
     <h3>{{(post$ | async)?.title}}</h3>
-    <span>{{(post$| async).date| date: 'medium'}}</span>
+    <span>{{(post$| async)?.date| date: 'medium'}}</span>
 
     <p>{{(post$ | async)?.username}}</p>
     <p>{{(post$ | async)?.text}}</p>

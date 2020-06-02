@@ -1,8 +1,12 @@
-<nav class="navigation">
-  <a [routerLink]= "['home']">HOME</a>
-  <a [routerLink] = "['login']">LOGIN</a>
-  <a [routerLink] = "['signin']">SIGN IN</a>
-  <app-logout></app-logout>
-</nav>
+<p-toast></p-toast>
+<p-menubar  >
+  <nav class="navigation">
+    <a [routerLink]= "['home']">HOME</a>
+    <a [routerLink] = "['login']">LOGIN</a>
+    <a [routerLink] = "['signin']">SIGN IN</a>
+    <app-logout></app-logout>
+  </nav>
+</p-menubar>
+
 
 <router-outlet></router-outlet>

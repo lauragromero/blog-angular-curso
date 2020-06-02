@@ -13,7 +13,6 @@ export class LogoutComponent implements OnInit {
   ngOnInit() {
   }
   onLogout() {
-    console.log('hola');
     localStorage.removeItem('token');
     localStorage.clear();
     this.route.navigate(['login']);

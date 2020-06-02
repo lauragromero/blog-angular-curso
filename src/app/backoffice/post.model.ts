@@ -1,5 +1,5 @@
 export interface Post {
-    _id: string;
+    _id?: string;
     username: string;
     nickname: string;
     title: string;
@@ -10,9 +10,9 @@ export interface Post {
 }
 
 export interface Comment {
-    nickname: string;
-    username: string;
-    comment: string;
-    date: Date;
-    _id: string;
+    nickname?: string;
+    username?: string;
+    comment?: string;
+    date?: Date;
+    _id?: string;
   }

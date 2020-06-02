@@ -28,6 +28,7 @@ export class PostProxyService {
 
 
   createPost(post: PostDTO): Observable<PostDTO>{
+    console.log(post);
     return this.httpClient.post<PostDTO>('http://localhost:3002/post', post)
     .pipe(
       catchError(this.errorHandler));

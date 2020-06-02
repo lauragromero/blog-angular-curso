@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { CommentStoreService } from '../comment-store.service';
 import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
@@ -20,53 +21,39 @@ export class EditPostComponent implements OnInit, OnDestroy {
   post$: Observable<Post>;
   updateForm: FormGroup;
   commentForm: FormGroup;
-  isEdit: boolean;
+
   isAdded: boolean;
   index: number;
-  comments: [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private service: PostService,
-    private store: PostStoreService,
-    private router: Router) { }
+    private storePost: PostStoreService,
+    private store: CommentStoreService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params.id;
-    this.post$ = this.service.getPostById(this.id);
-    this.updateForm = new FormGroup({
-      username: new FormControl ('', Validators.required),
-      nickname : new FormControl ('', Validators.required),
-      title : new FormControl ('', Validators.required),
-      text : new FormControl ('', Validators.required)
-    });
+    this.store.init(this.id);
+    this.post$ = this.store.get$();
+
     this.commentForm = new FormGroup({
       username: new FormControl ('', Validators.required),
       nickname : new FormControl ('', Validators.required),
       comment: new FormControl ('', Validators.required),
     });
 
-
   }
   commentAdd(){
     this.isAdded = !this.isAdded;
   }
-  editPost(){
-    this.isEdit = !this.isEdit;
-  }
-
-  updatePost(){
-   this.store.update$(this.id, this.updateForm.value);
-  }
 
   addComment(){
-    this.subAddComment = this.service.addComment(this.id, this.commentForm.value).subscribe(res => {
-      console.log('comentario añadido'); },
-      err => {
-        console.log(err.error.message);
-      } );
-
-
+    // this.subAddComment = this.service.addComment(this.id, this.commentForm.value).subscribe(res => {
+    //   console.log('comentario añadido'); },
+    //   err => {
+    //     console.log(err.error.message);
+    //   } );
+  this.store.addComment$(this.id, this.commentForm.value);
   }
 
 
@@ -74,9 +61,9 @@ export class EditPostComponent implements OnInit, OnDestroy {
     if (this.subUpdate){
       this.subUpdate.unsubscribe();
     }
-    if (this.subAddComment){
-      this.subAddComment.unsubscribe();
-    }
+    // if (this.subAddComment){
+    //   this.subAddComment.unsubscribe();
+    // }
 
 }
 }

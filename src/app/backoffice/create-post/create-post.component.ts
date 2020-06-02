@@ -28,8 +28,9 @@ export class CreatePostComponent implements OnInit{
     });
   }
 
-  createPost(){
+ createPost(){
     this.store.create$(this.postForm.value);
+    this.router.navigateByUrl('/admin');
     }
   }
 

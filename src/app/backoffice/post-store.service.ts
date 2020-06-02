@@ -19,7 +19,6 @@ export class PostStoreService extends Store<Post[]>{
       ).toPromise();
     }
 
-
     create$(post: Post): Promise<Post> {
       return this.service.createPost(post).pipe(
       tap(postResult => {
@@ -50,6 +49,8 @@ export class PostStoreService extends Store<Post[]>{
           ).toPromise();
     }
 
-    private searchIndex(posts: Post[], postId: string){ return posts.findIndex(item => item._id === postId);
+    private searchIndex(posts: Post[], postId: string){
+      console.log(posts);
+      return posts.findIndex(item => item._id === postId);
       }
 }

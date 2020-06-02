@@ -1,4 +1,76 @@
-<p>post-list works!</p>
+
+<!-- <p-dataView [value] = "allPost$ |async">
+    <p-header>List of Posts</p-header>
+    <ng-template let-post pTemplate="listItem">
+        <div>
+            {{post.username}}
+            {{post.date}}
+        </div>
+    </ng-template>
+    <ng-template let-post pTemplate="gridItem">
+        <div class="p-col-12 p-md-3">
+        {{post.title}}
+        </div>
+    </ng-template>
+</p-dataView> -->
+<a [routerLink]= "['/admin/create']">NUEVO POST</a>
+<p-table [columns]="cols" [value]="allPost$ |async" dataKey= "_id" expandableRows="true">
+    <ng-template pTemplate="header" let-columns >
+        <tr>
+            <th style="width: 2.25em"></th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-post let-columns="columns" let-expanded="expanded">
+        <tr>
+            <td>
+                <a href="#" [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                </a>
+            </td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <button pButton type="button" label="Coments" class="ui-button-rounded ui-button-secondary" [routerLink]= "['/admin/' + post._id]"></button>
+                <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)= "deletePost(post._id)"></button></td>
+        </tr>
+    </ng-template>
+    <ng-template  let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+            <td [attr.colspan]="columns.length + 1">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                    <div  style="text-align:center">
+                        <p>{{rowData.text}}</p>
+                    </div>
+                </div>
+            <div *ngIf="isEdit" class="edit" >
+             <form class= "edit" [formGroup]= "updateForm">
+                    <label for="username">Username:</label>
+                    <input name="username" type="text" formControlName= "username"/>
+                    <label for="nickname">Nickname:</label>
+                    <input name= "nickname" type="text" formControlName= "nickname"/>
+                    <label for="title">Title:</label>
+                    <input name= "title" type="text" formControlName= "title"/>
+                    <label for="text">Text:</label>
+                    <textarea name= "text" type="text" formControlName= "text"></textarea>
+                    <button type="submit" (click)="updatePost()" [disabled]= "!updateForm.valid">ACTUALIZAR</button>
+                </form>
+                 </div> 
+                </td>
+                <td> <button pButton label="Edit" class="ui-button-rounded" type="button" (click)= "editPost(post._id)"></button></td>
+                </tr>
+                
+    </ng-template>
+</p-table>
+
+
+<!-- 
+
+
 <a [routerLink]= "['/admin/create']">NUEVO POST</a>
 <ul>
     <li *ngFor="let post of (allPost$ | async)"  >
@@ -6,7 +78,21 @@
         <h4>{{post.nickname}}</h4>
         <span>{{post.username}}</span>
         <p>{{post.text}}</p>
-        <button [routerLink]= "['/admin/' + post._id]">EDITAR</button>
-        <button  (click)= "deletePost(post)">BORRAR</button>
+        <button  type="button" (click)= "editPost(post._id)">EDITAR</button>
+        <button [routerLink]= "['/admin/' + post._id]">COMENTARIOS</button>
+        <button  (click)= "deletePost(post._id)">BORRAR</button>
     </li>
-</ul>
+    <div *ngIf="isEdit" class="edit">
+        <form  class= "edit" [formGroup]= "updateForm"> 
+            <label for="username">Username:</label>
+            <input name="username" type="text" formControlName= "username"/>
+            <label for="nickname">Nickname:</label>
+            <input name= "nickname" type="text" formControlName= "nickname"/>
+            <label for="title">Title:</label>
+            <input name= "title" type="text" formControlName= "title"/>
+            <label for="text">Text:</label>
+            <textarea name= "text" type="text" formControlName= "text"></textarea>
+            <button type="submit" (click)="updatePost()" [disabled]= "!updateForm.valid">ACTUALIZAR</button>
+        </form>
+    </div>  
+</ul> -->

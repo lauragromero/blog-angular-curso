@@ -2,25 +2,12 @@
 <div>
     <button [routerLink]="['/admin']"> Volver Lista Post</button>
     <h3>{{(post$ | async)?.title}}</h3>
-    <button  type="button" (click)= "editPost()">EDITAR</button>
     <button type="button" (click)= "commentAdd()">AÑADIR COMENTARIO</button>
     <br>
     <h4>{{(post$ | async)?.date | date: 'medium'}}</h4>
     <p>{{(post$ | async)?.username}}</p>
     <p>{{(post$ | async)?.text}}</p>
-    <div *ngIf="isEdit" class="edit">
-        <form  class= "edit" [formGroup]= "updateForm"> 
-            <label for="username">Username:</label>
-            <input name="username" type="text" formControlName= "username"/>
-            <label for="nickname">Nickname:</label>
-            <input name= "nickname" type="text" formControlName= "nickname"/>
-            <label for="title">Title:</label>
-            <input name= "title" type="text" formControlName= "title"/>
-            <label for="text">Text:</label>
-            <textarea name= "text" type="text" formControlName= "text"></textarea>
-            <button type="submit" (click)="updatePost()" [disabled]= "!updateForm.valid">ACTUALIZAR</button>
-        </form>
-    </div>  
+    
     <div *ngIf="isAdded" class="addComment">
         <form  class= "addComment" [formGroup]= "commentForm"> 
             <label for="username">Username:</label>
