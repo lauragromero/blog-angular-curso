@@ -29,12 +29,13 @@ export class PostStoreService extends Store<Post[]>{
 
     update$(postId: string, post: Post): Promise<Post> {
       return this.service.updatePost(postId, post).pipe(
-        tap(() => {
+        tap(newPost => {
         const posts = this.get();
-        const p = Object.assign({}, post);
+        const p = Object.assign({}, newPost);
         const index = this.searchIndex(posts, postId);
         const newPosts = [...posts.slice(0, index), p, ...posts.slice(index, +1)];
-        this.store(newPosts); })
+        this.store(newPosts);
+        console.log(post); })
             ).toPromise();
     }
 

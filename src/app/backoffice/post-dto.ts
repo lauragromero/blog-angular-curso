@@ -3,7 +3,7 @@ export interface PostDTO{
     username: string;
     nickname: string;
     title: string;
-    authorId: string;
+    authorId?: string;
     text: string;
     date: Date;
     comments?: CommentDTO[];

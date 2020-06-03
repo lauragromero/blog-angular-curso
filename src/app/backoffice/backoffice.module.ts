@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { AppPostComponent } from './app-post/app-post.component';
 import { CommentsComponent } from './comments/comments.component';
@@ -16,7 +19,6 @@ const ROUTES: Routes = [
   {path: '', component: AppPostComponent,
     children: [
       {path: '', component: PostListComponent},
-      {path: 'create', component: CreatePostComponent},
       {path: ':id', component: EditPostComponent},
   ]
 }
@@ -28,9 +30,12 @@ const ROUTES: Routes = [
     CommonModule,
     ReactiveFormsModule,
     TableModule,
+    CardModule,
     ButtonModule,
+    InputTextModule,
+    InputTextareaModule,
     FieldsetModule,
-    RouterModule.forChild(ROUTES)
+   RouterModule.forChild(ROUTES)
   ], exports: [PostListComponent, AppPostComponent, CreatePostComponent, EditPostComponent]
 })
 export class BackofficeModule { }

@@ -1,19 +1,6 @@
 
-<!-- <p-dataView [value] = "allPost$ |async">
-    <p-header>List of Posts</p-header>
-    <ng-template let-post pTemplate="listItem">
-        <div>
-            {{post.username}}
-            {{post.date}}
-        </div>
-    </ng-template>
-    <ng-template let-post pTemplate="gridItem">
-        <div class="p-col-12 p-md-3">
-        {{post.title}}
-        </div>
-    </ng-template>
-</p-dataView> -->
-<a [routerLink]= "['/admin/create']">NUEVO POST</a>
+<app-create-post></app-create-post>
+
 <p-table [columns]="cols" [value]="allPost$ |async" dataKey= "_id" expandableRows="true">
     <ng-template pTemplate="header" let-columns >
         <tr>
@@ -24,7 +11,7 @@
             <th>Actions</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-post let-columns="columns" let-expanded="expanded">
+    <ng-template  pTemplate="body" let-rowData let-post let-columns="columns" let-expanded="expanded">
         <tr>
             <td>
                 <a href="#" [pRowToggler]="rowData">
@@ -33,17 +20,18 @@
             </td>
             <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
-            </td>
+          </td>
+          <!-- <td>{{rowData.date | date: "short"}}</td> -->
             <td>
-                <button pButton type="button" label="Coments" class="ui-button-rounded ui-button-secondary" [routerLink]= "['/admin/' + post._id]"></button>
+                <button pButton type="button" label="Coments" class="ui-button-rounded ui-button-secondary" (click)="goToPostDetail(post._id)"></button>
                 <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)= "deletePost(post._id)"></button></td>
         </tr>
     </ng-template>
-    <ng-template  let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <ng-template let-ri="rowIndex" let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
             <td [attr.colspan]="columns.length + 1">
-                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                    <div  style="text-align:center">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:10px">
+                    <div>
                         <p>{{rowData.text}}</p>
                     </div>
                 </div>
@@ -57,11 +45,12 @@
                     <input name= "title" type="text" formControlName= "title"/>
                     <label for="text">Text:</label>
                     <textarea name= "text" type="text" formControlName= "text"></textarea>
-                    <button type="submit" (click)="updatePost()" [disabled]= "!updateForm.valid">ACTUALIZAR</button>
+                    <button type="button" (click)="updatePost(post._id)" [disabled]= "!updateForm.valid">ACTUALIZAR</button>
                 </form>
                  </div> 
                 </td>
-                <td> <button pButton label="Edit" class="ui-button-rounded" type="button" (click)= "editPost(post._id)"></button></td>
+                <td> <button pButton label="Edit" class="ui-button-rounded" type="button" 
+                    (click)= "editPost(post._id, $event)"></button></td>
                 </tr>
                 
     </ng-template>

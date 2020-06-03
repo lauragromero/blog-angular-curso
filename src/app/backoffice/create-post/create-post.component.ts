@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,9 @@ import { PostStoreService } from '../post-store.service';
 export class CreatePostComponent implements OnInit{
 
   postForm: FormGroup;
+  isCreate: boolean;
   sub: Subscription;
+  @Output() shows = new EventEmitter();
 
 
 
@@ -28,9 +30,15 @@ export class CreatePostComponent implements OnInit{
     });
   }
 
+  showCreatePostForm(){
+    this.isCreate = !this.isCreate;
+  }
+
  createPost(){
-    this.store.create$(this.postForm.value);
-    this.router.navigateByUrl('/admin');
+   const newPostValue = this.postForm.value;
+   this.isCreate = false;
+   this.store.create$(newPostValue);
+   this.postForm.reset();
     }
   }
 

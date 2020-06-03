@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import { ToastModule } from 'primeng/toast';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
@@ -36,14 +35,13 @@ const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    ToastModule,
     ButtonModule,
     MenubarModule,
     HomeModule,
     AuthModule,
     SigninModule,
-    BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [

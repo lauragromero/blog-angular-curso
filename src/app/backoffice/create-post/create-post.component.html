@@ -1,12 +1,31 @@
-<button [routerLink]="['/admin']" type="button">VOLVER A LA LISTA DE POST</button>
-<form [formGroup]= "postForm"> 
-    <label for="username">Username:</label>
+
+<button pButton label="Create Post" class="ui-button-rounded ui-button-success" type="button"  (click)= "showCreatePostForm()"></button>
+<div *ngIf="isCreate" class="formCreatePost" >
+
+<form  class="formCreatePost"  [formGroup]= "postForm"> 
+    <span class="ui-float-label">
+        <input id="username" type="text" size="50" pInputText formControlName= "username"/> 
+        <label for="username">Username</label>
+    </span>
+    <span class="ui-float-label">
+        <input id="nickname" type="text" size="50" pInputText formControlName= "nickname"/> 
+        <label for="nickname">Nickname</label>
+    </span>
+    <span class="ui-float-label">
+        <input id="title" type="text" size="50" pInputText formControlName= "title"/> 
+        <label for="title">Title</label>
+    </span>
+    <span>
+        <textarea [rows]="8" [cols]="50" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea>
+    </span>
+    <!-- <label for="username">Username:</label>
     <input name="username" type="text" formControlName= "username"/>
     <label for="nickname">Nickname:</label>
     <input name= "nickname" type="text" formControlName= "nickname"/>
     <label for="title">Title:</label>
     <input name= "title" type="text" formControlName= "title"/>
     <label for="text">Text:</label>
-    <textarea name= "text" type="text" formControlName= "text"></textarea>
+    <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea> -->
     <button (click)="createPost()">Crear Nuevo Post</button>
 </form>
+</div>

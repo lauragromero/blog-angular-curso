@@ -6,7 +6,7 @@ import { Notificacion } from './Notificacion.model';
 @Injectable({
   providedIn: 'root'
 })
-export class BusService {
+export class NotificationBusService {
   showNotificacionSource: ReplaySubject<Notificacion>;
   constructor() {
     this.showNotificacionSource = new ReplaySubject<Notificacion>();

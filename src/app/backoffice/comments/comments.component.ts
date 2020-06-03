@@ -1,9 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { CommentStoreService } from '../comment-store.service';
-import { Comment } from '../post.model';
-import { PostService } from '../post.service';
 
 
 @Component({
@@ -11,48 +8,38 @@ import { PostService } from '../post.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit, OnDestroy {
+export class CommentsComponent implements OnInit{
 
-  @Input () comment: Comment;
+  @Input () comments: Comment[];
   updateCommentForm: FormGroup;
-  subDeleteComment: Subscription;
-  subUpdateComment: Subscription;
   show: boolean;
+  cols: any[];
 
-  constructor( private service: PostService,
-               private store: CommentStoreService) {
+  constructor(private store: CommentStoreService) {
     this.updateCommentForm = new FormGroup({
       username: new FormControl ('', Validators.required),
       nickname : new FormControl ('', Validators.required),
       comment: new FormControl ('', Validators.required),
     });
+
    }
 
   ngOnInit() {
+    this.cols = [
+      { field: 'username', header: 'Username' },
+      { field: 'date', header: 'Date'},
+      { field: 'comment', header: 'Comment' },
+
+    ];
   }
 
-  isShow(){
-    this.show = !this.show;
-  }
   deleteComment(idComment){
     this.store.delete$(idComment);
-  // this.service.deleteComment(idComment);
-  }
-  async updateComment(idComment){
-    await this.store.update$(idComment, this.updateCommentForm.value);
-    // this.subUpdateComment = this.service.updateComment(idComment, this.updateCommentForm.value).subscribe(res =>
-    // console.log('Update comment'));
-
   }
 
+  updateComment(idComment){
+    const updateValue = this.updateCommentForm.value;
+    this.store.update$(idComment, updateValue);
 
-  ngOnDestroy() {
-    if (this.subDeleteComment){
-      this.subDeleteComment.unsubscribe();
-    }
-    if (this.subUpdateComment){
-      this.subUpdateComment.unsubscribe();
-    }
-
-}
+  }
 }

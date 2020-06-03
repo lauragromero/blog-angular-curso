@@ -21,7 +21,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   post$: Observable<Post>;
   updateForm: FormGroup;
   commentForm: FormGroup;
-
+  cols: any[];
   isAdded: boolean;
   index: number;
 
@@ -42,17 +42,14 @@ export class EditPostComponent implements OnInit, OnDestroy {
       comment: new FormControl ('', Validators.required),
     });
 
+
+
   }
   commentAdd(){
     this.isAdded = !this.isAdded;
   }
 
   addComment(){
-    // this.subAddComment = this.service.addComment(this.id, this.commentForm.value).subscribe(res => {
-    //   console.log('comentario añadido'); },
-    //   err => {
-    //     console.log(err.error.message);
-    //   } );
   this.store.addComment$(this.id, this.commentForm.value);
   }
 
@@ -61,9 +58,5 @@ export class EditPostComponent implements OnInit, OnDestroy {
     if (this.subUpdate){
       this.subUpdate.unsubscribe();
     }
-    // if (this.subAddComment){
-    //   this.subAddComment.unsubscribe();
-    // }
-
 }
 }
