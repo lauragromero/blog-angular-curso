@@ -17,14 +17,13 @@ export class CommentsComponent implements OnInit{
 
   constructor(private store: CommentStoreService) {
     this.updateCommentForm = new FormGroup({
-      username: new FormControl ('', Validators.required),
-      nickname : new FormControl ('', Validators.required),
       comment: new FormControl ('', Validators.required),
     });
 
    }
 
   ngOnInit() {
+    console.log(this.comments);
     this.cols = [
       { field: 'username', header: 'Username' },
       { field: 'date', header: 'Date'},
@@ -34,6 +33,7 @@ export class CommentsComponent implements OnInit{
   }
 
   deleteComment(idComment){
+    console.log(idComment);
     this.store.delete$(idComment);
   }
 

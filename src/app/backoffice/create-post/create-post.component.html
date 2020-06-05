@@ -1,31 +1,17 @@
 
-<button pButton label="Create Post" class="ui-button-rounded ui-button-success" type="button"  (click)= "showCreatePostForm()"></button>
+<button pButton style="margin: 1.5em 0" icon="pi pi-plus" label="Create Post" class="ui-button-rounded ui-button-success" type="button"  (click)= "showCreatePostForm()"></button>
 <div *ngIf="isCreate" class="formCreatePost" >
-
-<form  class="formCreatePost"  [formGroup]= "postForm"> 
-    <span class="ui-float-label">
-        <input id="username" type="text" size="50" pInputText formControlName= "username"/> 
-        <label for="username">Username</label>
-    </span>
-    <span class="ui-float-label">
-        <input id="nickname" type="text" size="50" pInputText formControlName= "nickname"/> 
-        <label for="nickname">Nickname</label>
-    </span>
-    <span class="ui-float-label">
-        <input id="title" type="text" size="50" pInputText formControlName= "title"/> 
-        <label for="title">Title</label>
-    </span>
-    <span>
-        <textarea [rows]="8" [cols]="50" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea>
-    </span>
-    <!-- <label for="username">Username:</label>
-    <input name="username" type="text" formControlName= "username"/>
-    <label for="nickname">Nickname:</label>
-    <input name= "nickname" type="text" formControlName= "nickname"/>
-    <label for="title">Title:</label>
-    <input name= "title" type="text" formControlName= "title"/>
-    <label for="text">Text:</label>
-    <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea> -->
-    <button (click)="createPost()">Crear Nuevo Post</button>
-</form>
+    <form  class="formCreatePost"  [formGroup]= "postForm"> 
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12">
+                <label for="title">Title</label>
+                <input id="title" type="text" size="50" pInputText formControlName= "title"/> 
+            </div>
+            <div class="p-field p-col-12">
+                <label for="text">Text</label>
+                <textarea [rows]="8" [cols]="50" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea>
+            </div>
+            <button pButton  class= "p-col-12" style="width: 10em; margin: 0 auto;" type="button" label="Add Post" (click)="createPost()"></button>
+        </div>
+    </form>
 </div>

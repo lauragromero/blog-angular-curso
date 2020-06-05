@@ -20,16 +20,19 @@ export class CommentStoreService extends Store<Post>{
       ).toPromise();
    }
 
-   addComment$(id, comment ): Promise<Comment> {
-     return this.service.addComment(id, comment).pipe(
-       tap(() => {
+   addComment$(id, comment: Comment){
+    return this.service.addComment(id, comment).pipe(
+      tap((newC) => {
+        console.log(newC);
         const post = this.get();
-        const newComent = [...post.comments, comment];
+        const c = Object.assign({}, newC);
+        const newComent = [...post.comments, c];
         const newPost = {...post, comments: newComent};
+        console.log(newPost);
         this.store(newPost);
-       })
-     ).toPromise();
-   }
+      })
+    ).toPromise();
+  }
 
   update$(idComment, comment): Promise<Comment>  {
     return this.service.updateComment(idComment, comment).pipe(

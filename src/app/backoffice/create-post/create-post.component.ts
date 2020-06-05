@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PostStoreService } from '../post-store.service';
 
+
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -23,11 +24,11 @@ export class CreatePostComponent implements OnInit{
 
   ngOnInit(): void {
     this.postForm = new FormGroup({
-        username: new FormControl (''),
-        nickname : new FormControl (''),
         title : new FormControl (''),
         text : new FormControl ('')
     });
+    const userToken = localStorage.getItem('token');
+    console.log(userToken);
   }
 
   showCreatePostForm(){

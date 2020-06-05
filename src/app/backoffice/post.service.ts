@@ -11,9 +11,11 @@ import { Comment, Post } from './post.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class PostService{
 
   constructor( private proxyPost: PostProxyService) { }
+
+
 
   getAllPost(): Observable<Post[]>{
     return this.proxyPost.getAllPost().pipe(
@@ -32,7 +34,6 @@ export class PostService {
   }
 
   createPost(post: Post): Observable<Post>{
-    console.log(post);
     return this.proxyPost.createPost(this.adaptModelTODTO(post)).pipe(
       map((postDTO: PostDTO) => this.adaptDTOToModel(postDTO))
     );
@@ -51,10 +52,20 @@ export class PostService {
     );
   }
 
+  // addComment(id, comment: Comment): Observable<Comment>{
+  //   return this.proxyPost.addComment(id, this.adaptCommentModeltoDTO(comment)).pipe(
+  //     map((commentDTO: CommentDTO) => {
+  //       this.adaptCommentDTOtoModel(commentDTO); }),
+  //     catchError(err => of(err)));
+  // }
+
   addComment(id, comment: Comment): Observable<Comment>{
     return this.proxyPost.addComment(id, this.adaptCommentModeltoDTO(comment)).pipe(
-      map((commentDTO: CommentDTO) => this.adaptCommentDTOtoModel(commentDTO)),
-      catchError(err => of(err)));
+      map((commentDTO: CommentDTO) => {
+        console.log(commentDTO.comment);
+        return ({_id: commentDTO._id, username: commentDTO.username, date: commentDTO.date, ...comment});
+      })
+    );
   }
 
   deleteComment(idComment): Observable<Comment>{

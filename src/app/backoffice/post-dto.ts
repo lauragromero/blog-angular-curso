@@ -10,9 +10,9 @@ export interface PostDTO{
 }
 
 export interface CommentDTO {
-    nickname?: string;
-    username?: string;
-    comment?: string;
-    date?: Date;
+    nickname: string;
+    username: string;
+    comment: string;
+    date: Date;
     _id?: string;
 }

@@ -7,29 +7,28 @@
             <p-fieldset legend="Text" [toggleable]="true">
                 <p>{{(post$ | async)?.text}}</p>
             </p-fieldset>
+            <button pButton  style="margin-top: 0.7em;" type="button"  icon="pi pi-plus" label="New Comment" class="ui-button-rounded ui-button-success" type="button" (click)= "commentAdd()"></button>
+            <div *ngIf="isAdded" class="addComment">
+                <form style="margin-top: 1em;" class= "addComment" [formGroup]= "commentForm"> 
+                    <div class="ui-fluid">
+                        <div class="p-field">
+                            <label for="comment">Comment</label>
+                            <textarea [rows]="6" pInputTextarea autoResize="autoResize" name= "comment" type="text" formControlName= "comment"></textarea>
+                        </div>
+                        <button pButton  style="width: 10em; margin: 0 auto;" type="button" label="Add Comment" (click)="addComment()" [disabled]= "!commentForm.valid"></button>
+                    </div>
+                </form>
+            </div>  
             <p-footer> 
-            <button pButton  style="margin-top: 1em;" type="button"  icon="pi pi-plus" label="New Comment" class="ui-button-rounded ui-button-success" type="button" (click)= "commentAdd()"></button>
+            
             </p-footer>
         </p-card>
-       
-
     </div>
-    <div *ngIf="isAdded" class="addComment">
-        <form  class= "addComment" [formGroup]= "commentForm"> 
-            <label for="username">Username:</label>
-            <input name="username" type="text" formControlName= "username"/>
-            <label for="nickname">Nickname:</label>
-            <input name= "nickname" type="text" formControlName= "nickname"/>
-            <label for="text">Comment:</label>
-            <textarea name= "comment" type="text" formControlName= "comment"></textarea>
-            <button type="submit" (click)="addComment()" [disabled]= "!commentForm.valid">Añadir</button>
-        </form>
-    </div>  
+   
     
     <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
         <ng-template #okList>
-            <app-comments  [comments]="(post$ | async)?.comments"></app-comments>
+           <app-comments  [comments]="(post$ | async)?.comments"></app-comments> 
         </ng-template>
         <ng-template #error>No hay comentarios</ng-template>  
  </div>
-

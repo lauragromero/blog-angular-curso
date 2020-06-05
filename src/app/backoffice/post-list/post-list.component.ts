@@ -43,8 +43,6 @@ export class PostListComponent implements OnInit {
     this.store.init();
     this.allPost$ = this.store.get$();
     this.updateForm = new FormGroup({
-      username: new FormControl ('', Validators.required),
-      nickname : new FormControl ('', Validators.required),
       title : new FormControl ('', Validators.required),
       text : new FormControl ('', Validators.required)
     });
