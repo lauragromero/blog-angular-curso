@@ -11,7 +11,8 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
 
   logingForm: FormGroup;
-  constructor( private service: LoginService) { }
+  constructor( private service: LoginService,
+               ) { }
 
   ngOnInit(): void {
     this.logingForm = new FormGroup({

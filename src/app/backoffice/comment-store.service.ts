@@ -23,27 +23,24 @@ export class CommentStoreService extends Store<Post>{
    addComment$(id, comment: Comment){
     return this.service.addComment(id, comment).pipe(
       tap((newC) => {
-        console.log(newC);
         const post = this.get();
         const c = Object.assign({}, newC);
         const newComent = [...post.comments, c];
         const newPost = {...post, comments: newComent};
-        console.log(newPost);
         this.store(newPost);
       })
     ).toPromise();
   }
 
-  update$(idComment, comment): Promise<Comment>  {
+  update$(idComment, comment: Comment): Promise<Comment> {
     return this.service.updateComment(idComment, comment).pipe(
-      tap(newComment => {
+      tap((newComment) => {
       const post = this.get();
       const c = Object.assign({}, newComment);
       const index = this.searchIndex(post.comments, idComment);
       const newComments = [...post.comments.slice(0, index), c, ...post.comments.slice(index, +1)];
       const newPost = {...post, comments: newComments};
       this.store(newPost);
-      console.log(post);
      })
           ).toPromise();
   }
@@ -60,6 +57,7 @@ export class CommentStoreService extends Store<Post>{
     }
 
     private searchIndex(comments: Comment[], commentId: string){
-      return comments.findIndex(item => item._id === commentId);
+      const findComment = comments.findIndex(item => item._id === commentId);
+      return findComment;
       }
 }

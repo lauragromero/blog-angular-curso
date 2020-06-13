@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NotificationBusService } from 'src/app/bus.service';
 import { CommentStoreService } from '../comment-store.service';
 
 
@@ -15,7 +16,8 @@ export class CommentsComponent implements OnInit{
   show: boolean;
   cols: any[];
 
-  constructor(private store: CommentStoreService) {
+  constructor(private store: CommentStoreService,
+              private notificacionBus: NotificationBusService){
     this.updateCommentForm = new FormGroup({
       comment: new FormControl ('', Validators.required),
     });
@@ -33,13 +35,21 @@ export class CommentsComponent implements OnInit{
   }
 
   deleteComment(idComment){
-    console.log(idComment);
-    this.store.delete$(idComment);
+    this.store.delete$(idComment)
+    .then(() => {
+      this.notificacionBus.showSuccess('Comment has been deleted'); })
+    .catch(err => {
+      this.notificacionBus.showError(err); });
   }
 
   updateComment(idComment){
     const updateValue = this.updateCommentForm.value;
-    this.store.update$(idComment, updateValue);
+    this.store.update$(idComment, updateValue)
+    .then(() => {
+      this.notificacionBus.showSuccess('Comment has been update');
+      this.updateCommentForm.reset(); })
+    .catch(err => {
+      this.notificacionBus.showError(err); });
 
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NotificationBusService } from 'src/app/bus.service';
 import { PostStoreService } from '../post-store.service';
 
 
@@ -20,7 +20,7 @@ export class CreatePostComponent implements OnInit{
 
 
   constructor(private store: PostStoreService,
-              private router: Router) { }
+              private notificacionBus: NotificationBusService) { }
 
   ngOnInit(): void {
     this.postForm = new FormGroup({
@@ -38,8 +38,12 @@ export class CreatePostComponent implements OnInit{
  createPost(){
    const newPostValue = this.postForm.value;
    this.isCreate = false;
-   this.store.create$(newPostValue);
-   this.postForm.reset();
+   this.store.create$(newPostValue)
+   .then(() => {
+    this.notificacionBus.showSuccess('Post has been published');
+    this.postForm.reset(); })
+  .catch(err => {
+    this.notificacionBus.showError(err.error.message); });
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { NotificationBusService } from 'src/app/bus.service';
 import { SigninService } from '../signin.service';
 
 
@@ -16,7 +17,8 @@ export class SignInComponent implements OnInit, OnDestroy {
  error: string;
 
   constructor( private service: SigninService,
-               private router: Router) { }
+               private router: Router,
+               private notificacionBus: NotificationBusService) { }
 
   ngOnInit(): void {
     this.signInForm = new FormGroup({
@@ -30,11 +32,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.sub = this.service.createUser(this.signInForm.value).subscribe(res => {
       console.log('User added');
       this.router.navigateByUrl('/login');
-      console.log(res);
-    }, err => {
-      this.error = err.error.message;
+    }, err => {this.notificacionBus.showError(err.error.message);
+
     });
   }
+
 
   ngOnDestroy(){
     if (this.sub){

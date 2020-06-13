@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppHomeComponent } from './app-home/app-home.component';
 import { DetailPostComponent } from './detail-post/detail-post.component';
@@ -21,6 +21,7 @@ const ROUTES: Routes = [
     CommonModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES)
-  ], exports: [AppHomeComponent, HomePostComponent, DetailPostComponent]
+  ], exports: [AppHomeComponent, HomePostComponent, DetailPostComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }

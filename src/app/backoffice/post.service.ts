@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import { catchError } from 'rxjs/operators';
+import { NotificationBusService } from '../bus.service';
 import { CommentDTO, PostDTO } from './post-dto';
 import { PostProxyService } from './post-proxy.service';
 import { Comment, Post } from './post.model';
@@ -13,7 +12,8 @@ import { Comment, Post } from './post.model';
 })
 export class PostService{
 
-  constructor( private proxyPost: PostProxyService) { }
+  constructor( private proxyPost: PostProxyService,
+               private notificacionBus: NotificationBusService) { }
 
 
 
@@ -52,17 +52,9 @@ export class PostService{
     );
   }
 
-  // addComment(id, comment: Comment): Observable<Comment>{
-  //   return this.proxyPost.addComment(id, this.adaptCommentModeltoDTO(comment)).pipe(
-  //     map((commentDTO: CommentDTO) => {
-  //       this.adaptCommentDTOtoModel(commentDTO); }),
-  //     catchError(err => of(err)));
-  // }
-
   addComment(id, comment: Comment): Observable<Comment>{
     return this.proxyPost.addComment(id, this.adaptCommentModeltoDTO(comment)).pipe(
       map((commentDTO: CommentDTO) => {
-        console.log(commentDTO.comment);
         return ({_id: commentDTO._id, username: commentDTO.username, date: commentDTO.date, ...comment});
       })
     );
@@ -75,10 +67,9 @@ export class PostService{
   }
 
   updateComment(idComment, comment: Comment): Observable<Comment>{
-    console.log(comment);
     return this.proxyPost.updateComment(idComment, this.adaptCommentModeltoDTO(comment)).pipe(
       map(commentDTO => this.adaptCommentDTOtoModel(commentDTO)),
-      catchError(err => of(err)));
+      );
   }
 
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NotificationBusService } from 'src/app/bus.service';
 import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
 
@@ -37,7 +38,7 @@ export class PostListComponent implements OnInit {
   constructor(
     private router: Router,
     private store: PostStoreService,
-    ) { }
+    private notificacionBus: NotificationBusService) { }
 
   ngOnInit(): void {
     this.store.init();
@@ -65,13 +66,21 @@ export class PostListComponent implements OnInit {
     this.isEdit = false;
     console.log(id);
     const updateValue = this.updateForm.value;
-    this.store.update$(id, updateValue);
-
+    this.store.update$(id, updateValue)
+    .then(() => {
+      this.notificacionBus.showSuccess('Post has been update');
+      this.updateForm.reset(); })
+    .catch(err => {
+      this.notificacionBus.showError(err); });
   }
 
-  async deletePost(id) {
-    console.log(id);
-    await this.store.delete$(id);
-  }
+  deletePost(id){
+      this.store.delete$(id)
+      .then(() => {
+        this.notificacionBus.showSuccess('Post has been deleted'); })
+      .catch(err => {
+        console.log(err);
+        this.notificacionBus.showError(err); });
+    }
 
 }

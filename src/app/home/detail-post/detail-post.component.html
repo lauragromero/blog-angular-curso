@@ -1,20 +1,21 @@
-<p> POST</p>
-
-<div>
-    <h3>{{(post$ | async)?.title}}</h3>
+<div class="detail__container">
+    <detail-card  detailTitle="{{(post$ | async)?.title}}" detailDate="{{(post$| async)?.date| date: 'medium'}}" detailAuthor="{{(post$ | async)?.username}}" detailText="{{(post$ | async)?.text}}"></detail-card>
+    <!-- <h3>{{(post$ | async)?.title}}</h3>
     <span>{{(post$| async)?.date| date: 'medium'}}</span>
 
     <p>{{(post$ | async)?.username}}</p>
-    <p>{{(post$ | async)?.text}}</p>
+    <p>{{(post$ | async)?.text}}</p> -->
 
     <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
     <ng-template #okList>
-    <ul> Comments:
-        <li *ngFor="let comment of (post$ | async)?.comments" >
-            <h4>{{comment?.nickname}}</h4> 
-            <p>{{comment?.comment}}</p>
-     </li>
-    </ul> 
-</ng-template>
-<ng-template #error>No hay comentarios</ng-template>
+        <ul class="detail__list"> 
+            <span class="list__title">{{(post$|async)?.comments?.length}} Comments</span>
+            <li *ngFor="let comment of (post$ | async)?.comments" >
+                <detail-comment commentAuthor="{{comment?.username}}" commentDate="{{comment?.date}}" commentText="{{comment?.comment}}"></detail-comment>
+                <!-- <h4>{{comment?.username}}</h4> 
+                <p>{{comment?.comment}}</p> -->
+            </li>
+        </ul> 
+    </ng-template>
+    <ng-template #error>No comments</ng-template>
 </div>

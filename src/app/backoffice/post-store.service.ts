@@ -34,8 +34,7 @@ export class PostStoreService extends Store<Post[]>{
         const p = Object.assign({}, newPost);
         const index = this.searchIndex(posts, postId);
         const newPosts = [...posts.slice(0, index), p, ...posts.slice(index, +1)];
-        this.store(newPosts);
-        console.log(post); })
+        this.store(newPosts); })
             ).toPromise();
     }
 
@@ -51,7 +50,6 @@ export class PostStoreService extends Store<Post[]>{
     }
 
     private searchIndex(posts: Post[], postId: string){
-      console.log(posts);
       return posts.findIndex(item => item._id === postId);
       }
 }

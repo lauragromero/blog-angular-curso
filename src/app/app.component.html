@@ -1,11 +1,11 @@
-
-<p-menubar>
-    <a  pButton style="margin-right: 1em;" label="Home" icon="pi pi-home" type="button" [routerLink]= "['home']"></a>
-    <a pButton  style="margin-right: 1em;" label="LogIn" icon="pi pi-sign-in" type="button"  [routerLink] = "['login']"></a>
-    <a pButton  style="margin-right: 1em;" label="SingIn" icon="pi pi-user-plus" type="button"  [routerLink] = "['signin']"></a>
-    <app-logout></app-logout>
-
-</p-menubar>
-
+<p-messages [(value)]="msgs"></p-messages>
+<header-template [headerTitle]="'the blog.'"></header-template>
+<nav class="menu__nav">
+    <ul class="menu__list">
+        <li class="menu__list-item"><a [routerLink]= "['home']">Home</a></li>
+        <li class="menu__list-item"><a [routerLink] = "['login']">Log-In</a></li>
+        <li class="menu__list-item"><a  [routerLink] = "['signin']">Sing-In</a></li>
+    </ul>
+</nav>
 
 <router-outlet></router-outlet>
