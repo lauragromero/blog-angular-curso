@@ -23,6 +23,7 @@
     "@angular/router": "~9.1.4",
     "@briebug/jest-schematic": "^2.1.1",
     "blog-stencil": "file:../blog-stencil",
+    "jwt-decode": "^2.2.0",
     "primeflex": "^1.1.1",
     "primeicons": "^4.0.0-rc.2",
     "primeng": "^9.1.0",

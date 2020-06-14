@@ -1,12 +1,28 @@
 <p-messages [(value)]="msgs"></p-messages>
 <header-template [headerTitle]="'the blog.'"></header-template>
-<nav class="menu__nav">
-    <ul class="menu__list">
-        <li class="menu__list-item"><a [routerLink]= "['home']">Home</a></li>
-        <li class="menu__list-item"><a [routerLink] = "['login']">Log-In</a></li>
-        <li class="menu__list-item"><a  [routerLink] = "['signin']">Sing-In</a></li>
-    </ul>
-</nav>
-
+<div *ngIf="(user$ |async)?.length>0; then menuUser else publicMenu"></div>
+        <ng-template #menuUser>
+            <nav class="menu__nav">
+                <ul class="menu__list_isUser" >
+                    <div class="menu">
+                        <li class="menu__list-item"><a [routerLink]= "['home']"> <i class="fas fa-home"></i> Home</a></li>
+                        <li class="menu__list-item"><a [routerLink]= "['admin']"> <i class="fas fa-user-edit"></i> Backoffice</a></li>
+                    </div>
+                    <div class="menu">
+                        <span class="userDetails" *ngFor="let us of (user$ |async)"> <i class="fas fa-user"></i> Hello! {{us.username | uppercase}}</span>
+                        <app-logout></app-logout>
+                    </div>
+                </ul>
+            </nav>
+        </ng-template>
+        <ng-template #publicMenu>
+            <nav class="menu__nav">
+                <ul class="menu__list">
+                    <li class="menu__list-item"><a [routerLink]= "['home']">Home</a></li>
+                    <li class="menu__list-item"><a [routerLink] = "['login']">Account</a></li>
+                </ul>
+            </nav>
+        </ng-template>  
 <router-outlet></router-outlet>
-<!-- <footer-blog></footer-blog> -->
+
+<footer-blog></footer-blog>

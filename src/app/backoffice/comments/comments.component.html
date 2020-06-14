@@ -17,9 +17,9 @@
             <td>{{rowData.comment}}</td>
             <td>
                 <a href="#" [pRowToggler]="rowData">
-                    <button pButton type="button" label="Edit" class="ui-button-rounded"></button>
+                    <button style="width: 7.5em; margin-right: 0.5em;" pButton type="button" label="Edit" class="ui-button-rounded"></button>
                 </a>
-                <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)= "deleteComment(rowData._id)"></button></td>
+                <button pButton style="width: 7.5em; margin-left: 0.5em;" type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)= "deleteComment(rowData._id)"></button></td>
         </tr>
     </ng-template>
     <ng-template let-ri="rowIndex" let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
@@ -30,6 +30,7 @@
                         <div class="p-field">
                             <label for="comment">Comment</label>
                             <textarea pInputTextarea autoResize="autoResize" name= "comment" type="text" formControlName= "comment"></textarea>
+                            <app-error-messages [control]="updateCommentForm.get('comment')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
                         </div>
                         <button pButton  style="width: 10em; margin: 0 auto;" type="button" label="Add Comment" (click)="updateComment(rowData._id)" [disabled]= "!updateCommentForm.valid"></button>
                     </div>

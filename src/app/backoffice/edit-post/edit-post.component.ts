@@ -22,6 +22,7 @@ export class EditPostComponent implements OnInit {
   cols: any[];
   isAdded: boolean;
   index: number;
+  customErrorsMessages: {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +36,9 @@ export class EditPostComponent implements OnInit {
     this.commentForm = new FormGroup({
       comment: new FormControl ('', Validators.required),
     });
+    this.customErrorsMessages = {
+      required: 'This field must not be empty',
+    };
 
   }
   commentAdd(){

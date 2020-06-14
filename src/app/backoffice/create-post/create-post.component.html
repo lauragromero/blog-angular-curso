@@ -5,11 +5,13 @@
         <div class="ui-fluid p-formgrid p-grid">
             <div class="p-field p-col-12">
                 <label for="title">Title</label>
-                <input id="title" type="text" size="50" pInputText formControlName= "title"/> 
+                <input id="title" type="text" size="50" pInputText formControlName= "title"/>
+                <app-error-messages [control]="postForm.get('title')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
             </div>
             <div class="p-field p-col-12">
                 <label for="text">Text</label>
                 <textarea [rows]="8" [cols]="50" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea>
+                <app-error-messages [control]="postForm.get('text')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
             </div>
             <button pButton  class= "p-col-12" style="width: 10em; margin: 0 auto;" type="button" label="Add Post" (click)="createPost()"></button>
         </div>

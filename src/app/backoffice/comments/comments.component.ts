@@ -15,23 +15,23 @@ export class CommentsComponent implements OnInit{
   updateCommentForm: FormGroup;
   show: boolean;
   cols: any[];
+  customErrorsMessages: {};
 
   constructor(private store: CommentStoreService,
-              private notificacionBus: NotificationBusService){
+              private notificacionBus: NotificationBusService){}
+
+  ngOnInit() {
     this.updateCommentForm = new FormGroup({
       comment: new FormControl ('', Validators.required),
     });
-
-   }
-
-  ngOnInit() {
-    console.log(this.comments);
     this.cols = [
       { field: 'username', header: 'Username' },
       { field: 'date', header: 'Date'},
       { field: 'comment', header: 'Comment' },
-
     ];
+    this.customErrorsMessages = {
+      required: 'This field must not be empty',
+    };
   }
 
   deleteComment(idComment){

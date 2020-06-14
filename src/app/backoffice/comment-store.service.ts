@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { Store } from '../store';
 import { Comment, Post } from './post.model';
 import { PostService } from './post.service';
-import { Store } from './store';
 
 @Injectable({
   providedIn: 'root'

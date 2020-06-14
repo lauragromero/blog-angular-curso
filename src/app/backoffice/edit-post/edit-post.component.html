@@ -1,6 +1,6 @@
 <div class="edit__post-container">
-    <div class="postDetail" style=" margin-bottom: 2em;">
-        <button  pButton type="button" label="Post List" icon="pi pi-chevron-left" [routerLink]="['/admin']"></button>
+    <div class="postDetail" style=" margin-bottom: 2em; margin-top: 1em;">
+        <button  pButton  style=" margin-bottom: 0.5em;" type="button" label="Post List" icon="pi pi-chevron-left" [routerLink]="['/admin']"></button>
         <p-card header="{{(post$ | async)?.title | uppercase}}" subheader="{{(post$ | async)?.date | date: 'short'}}" 
         styleClass="ui-card-shadow">
             <h4> Author: {{(post$ | async)?.username}}</h4>
@@ -14,6 +14,7 @@
                         <div class="p-field">
                             <label for="comment">Comment</label>
                             <textarea [rows]="6" pInputTextarea autoResize="autoResize" name= "comment" type="text" formControlName= "comment"></textarea>
+                            <app-error-messages [control]="commentForm.get('comment')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
                         </div>
                         <button pButton  style="width: 10em; margin: 0 auto;" type="button" label="Add Comment" (click)="addComment()" [disabled]= "!commentForm.valid"></button>
                     </div>
