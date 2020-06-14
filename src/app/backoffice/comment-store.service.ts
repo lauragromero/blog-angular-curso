@@ -38,7 +38,7 @@ export class CommentStoreService extends Store<Post>{
       const post = this.get();
       const c = Object.assign({}, newComment);
       const index = this.searchIndex(post.comments, idComment);
-      const newComments = [...post.comments.slice(0, index), c, ...post.comments.slice(index, +1)];
+      const newComments = [...post.comments.slice(0, index), c, ...post.comments.slice(index + 1 )];
       const newPost = {...post, comments: newComments};
       this.store(newPost);
      })

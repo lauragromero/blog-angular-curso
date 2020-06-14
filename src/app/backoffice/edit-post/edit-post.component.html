@@ -1,4 +1,4 @@
-<div>
+<div class="edit__post-container">
     <div class="postDetail" style=" margin-bottom: 2em;">
         <button  pButton type="button" label="Post List" icon="pi pi-chevron-left" [routerLink]="['/admin']"></button>
         <p-card header="{{(post$ | async)?.title | uppercase}}" subheader="{{(post$ | async)?.date | date: 'short'}}" 
@@ -25,7 +25,6 @@
         </p-card>
     </div>
    
-    
     <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
         <ng-template #okList>
            <app-comments  [comments]="(post$ | async)?.comments"></app-comments> 

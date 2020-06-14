@@ -33,7 +33,7 @@ export class PostStoreService extends Store<Post[]>{
         const posts = this.get();
         const p = Object.assign({}, newPost);
         const index = this.searchIndex(posts, postId);
-        const newPosts = [...posts.slice(0, index), p, ...posts.slice(index, +1)];
+        const newPosts = [...posts.slice(0, index), p, ...posts.slice(index + 1 )];
         this.store(newPosts); })
             ).toPromise();
     }
