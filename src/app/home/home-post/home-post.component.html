@@ -1,15 +1,10 @@
 
-<ul class="post-grid">
-    <li *ngFor="let post of (allPost$ | async)">
+<grid-layout>
+    <div *ngFor="let post of (allPost$ | async)">
         <post-component titlePost="{{post.title}}" usernamePost="{{post.username}}" 
         nicknamePost="{{post.title}}" datePost="{{post.date}}" textPost="{{post.text}}" (selectPost)="onSelect(post._id)"></post-component>
-        <!-- <my-component first= "{{post.title}}" last="caracola"></my-component>
-        <h3>{{post.title}}</h3>
-        <span>{{post.date | date: 'medium'}}</span>
-        <h4>{{post.nickname}}</h4>
-        <p>{{post.text}}</p>
-        <button type="button" (click)="onSelect(post._id)">Detalles</button> -->
-    </li>
-</ul>
+    </div>
+</grid-layout>
+
 
 

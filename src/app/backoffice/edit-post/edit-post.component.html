@@ -28,7 +28,7 @@
    
     <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
         <ng-template #okList>
-           <app-comments  [comments]="(post$ | async)?.comments"></app-comments> 
+           <app-comments [postUsername]="(post$ | async)?.username" [comments]="(post$ | async)?.comments"></app-comments> 
         </ng-template>
         <ng-template #error>No hay comentarios</ng-template>  
  </div>

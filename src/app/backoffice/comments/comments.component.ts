@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { UserStoreService } from 'src/app/auth/user-store.service';
+import { User } from 'src/app/auth/user.model';
 import { NotificationBusService } from 'src/app/bus.service';
 import { CommentStoreService } from '../comment-store.service';
 
@@ -12,15 +16,22 @@ import { CommentStoreService } from '../comment-store.service';
 export class CommentsComponent implements OnInit{
 
   @Input () comments: Comment[];
+  @Input () postUsername: string;
   updateCommentForm: FormGroup;
   show: boolean;
   cols: any[];
   customErrorsMessages: {};
+  user: Observable<User[]>;
+  id: string;
 
   constructor(private store: CommentStoreService,
-              private notificacionBus: NotificationBusService){}
+              private notificacionBus: NotificationBusService,
+              private userStore: UserStoreService,
+              private activatedRoute: ActivatedRoute){}
 
   ngOnInit() {
+    this.user = this.userStore.get$();
+    console.log(this.postUsername);
     this.updateCommentForm = new FormGroup({
       comment: new FormControl ('', Validators.required),
     });
@@ -39,7 +50,7 @@ export class CommentsComponent implements OnInit{
     .then(() => {
       this.notificacionBus.showSuccess('Comment has been deleted'); })
     .catch(err => {
-      this.notificacionBus.showError(err); });
+      this.notificacionBus.showError('Can not deleted this comment'); });
   }
 
   updateComment(idComment){
@@ -49,7 +60,7 @@ export class CommentsComponent implements OnInit{
       this.notificacionBus.showSuccess('Comment has been update');
       this.updateCommentForm.reset(); })
     .catch(err => {
-      this.notificacionBus.showError(err); });
+      this.notificacionBus.showError('Can not modify this comment'); });
 
   }
 }

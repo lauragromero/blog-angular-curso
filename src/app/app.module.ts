@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/login/login.component';
-import { HomeModule } from './home/home.module';
 import { LoginAuthService } from './login-auth.service';
 
 
@@ -37,7 +36,6 @@ const ROUTES: Routes = [
     HttpClientModule,
     ButtonModule,
     MenubarModule,
-    HomeModule,
     MessageModule,
     MessagesModule,
     AuthModule,

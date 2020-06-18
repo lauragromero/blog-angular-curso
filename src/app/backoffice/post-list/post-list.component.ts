@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserStoreService } from 'src/app/auth/user-store.service';
+import { User } from 'src/app/auth/user.model';
 import { NotificationBusService } from 'src/app/bus.service';
 import { PostStoreService } from '../post-store.service';
 import { Post } from '../post.model';
@@ -30,19 +32,23 @@ import { Post } from '../post.model';
 export class PostListComponent implements OnInit {
 
   allPost$: Observable<Post[]>;
+  user: Observable<User[]>;
   updateForm: FormGroup;
   id: string;
   isEdit: boolean;
   cols: any[];
+  isRole: boolean;
 
   constructor(
     private router: Router,
     private store: PostStoreService,
-    private notificacionBus: NotificationBusService) { }
+    private notificacionBus: NotificationBusService,
+    private userStore: UserStoreService) { }
 
   ngOnInit(): void {
     this.store.init();
     this.allPost$ = this.store.get$();
+    this.user = this.userStore.get$();
     this.updateForm = new FormGroup({
       title : new FormControl ('', Validators.required),
       text : new FormControl ('', Validators.required)
@@ -54,6 +60,17 @@ export class PostListComponent implements OnInit {
       { field: 'title', header: 'Post Title' },
     ];
   }
+
+  // userRole(){
+  //   this.userStore.get$().subscribe(res => {
+  //     console.log(res[0].role);
+  //     if (res[0].role === 'admin' || res[0].username === this.cols.username){
+  //       this.isRole = false;
+  //     }else{
+  //       this.isRole = true;
+  //     }
+  //   });
+  // }
 
   editPost(id, ev){
     console.log(id);
@@ -71,7 +88,7 @@ export class PostListComponent implements OnInit {
       this.notificacionBus.showSuccess('Post has been update');
       this.updateForm.reset(); })
     .catch(err => {
-      this.notificacionBus.showError(err); });
+      this.notificacionBus.showError('Can not update this post'); });
   }
 
   deletePost(id){
@@ -80,7 +97,7 @@ export class PostListComponent implements OnInit {
         this.notificacionBus.showSuccess('Post has been deleted'); })
       .catch(err => {
         console.log(err);
-        this.notificacionBus.showError(err); });
+        this.notificacionBus.showError('Can not deleted this post'); });
     }
 
 }

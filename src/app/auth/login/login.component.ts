@@ -53,19 +53,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   createUser(){
     this.sub = this.service.createUser(this.signInForm.value).subscribe(res => {
       this.isSignin = false;
-    }, err => {this.notificacionBus.showError(err.error.message);
+    }, err => {
+      this.signInForm.reset();
+      this.notificacionBus.showError(err.error.message);
 
     });
   }
-
 
   ngOnDestroy(){
     if (this.sub){
       this.sub.unsubscribe();
     }
   }
-
-
-
   }
 

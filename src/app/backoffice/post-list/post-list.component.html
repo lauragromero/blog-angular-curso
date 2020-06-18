@@ -3,17 +3,12 @@
 
 <p-table [columns]="cols" [value]="allPost$ |async" dataKey= "_id" expandableRows="true">
     <ng-template pTemplate="header" let-columns >
-        <!-- <tr><th colspan="6">POST LIST</th></tr> -->
         <tr>
-            <!-- <th style="width: 2.7em"></th> -->
             <th style="width: 2.7em"></th>
             <th style="width: 9em" >Username</th>
             <th style="width: 7em" >Nickname</th>
             <th style="width: 11em" >Date</th>
             <th style="width: 20em" >Title</th>
-            <!-- <th *ngFor="let col of columns">
-                {{col.header}}
-            </th> -->
             <th style="width: 11.5em">Actions</th>
         </tr>
     </ng-template>
@@ -28,10 +23,9 @@
             <td>{{rowData.nickname}}</td>
             <td>{{rowData.date | date: "short"}}</td>
             <td>{{rowData.title | titlecase }}</td>
-          <!-- <td>{{rowData.date | date: "short"}}</td> -->
             <td>
                 <button pButton type="button" style="margin-right: 0.5em;" label="Coments" class="ui-button-rounded" (click)="goToPostDetail(post._id)"></button>
-                <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)="deletePost(post._id)"></button></td>
+                <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" [disabled]=" (user|async)[0]?.username !== rowData.username && (user|async)[0]?.role !== 'admin'? true : false" (click)="deletePost(post._id)"></button></td>
         </tr>
     </ng-template>
     <ng-template let-ri="rowIndex" let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
@@ -39,7 +33,7 @@
             <td [attr.colspan]="columns.length + 2">
                 <div class="ui-g ui-fluid" style="font-size:16px;padding:10px">
                     <div>
-                        <button pButton  icon="pi pi-pencil" type="button" 
+                        <button pButton  icon="pi pi-pencil" type="button" [disabled]=" (user|async)[0]?.username !== rowData.username && (user|async)[0]?.role !== 'admin'? true : false"
                     (click)= "editPost(post._id, $event)"></button>
                         <h3>{{rowData.title | titlecase }}</h3>
                         <p>{{rowData.text}}</p>

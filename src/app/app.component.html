@@ -1,4 +1,4 @@
-<p-messages [(value)]="msgs"></p-messages>
+
 <header-template [headerTitle]="'the blog.'"></header-template>
 <div *ngIf="(user$ |async)?.length>0; then menuUser else publicMenu"></div>
         <ng-template #menuUser>
@@ -23,6 +23,7 @@
                 </ul>
             </nav>
         </ng-template>  
+<p-messages [(value)]="msgs"></p-messages>
 <router-outlet></router-outlet>
 
 <footer-blog></footer-blog>
