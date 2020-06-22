@@ -61,17 +61,6 @@ export class PostListComponent implements OnInit {
     ];
   }
 
-  // userRole(){
-  //   this.userStore.get$().subscribe(res => {
-  //     console.log(res[0].role);
-  //     if (res[0].role === 'admin' || res[0].username === this.cols.username){
-  //       this.isRole = false;
-  //     }else{
-  //       this.isRole = true;
-  //     }
-  //   });
-  // }
-
   editPost(id, ev){
     console.log(id);
     this.isEdit = !this.isEdit;
