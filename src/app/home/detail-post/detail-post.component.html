@@ -1,0 +1,14 @@
+<div class="detail__container">
+    <detail-card  detailTitle="{{(post$ | async)?.title}}" detailDate="{{(post$| async)?.date| date: 'medium'}}" detailAuthor="{{(post$ | async)?.username}}" detailText="{{(post$ | async)?.text}}"></detail-card>
+
+    <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
+    <ng-template #okList>
+        <ul class="detail__list"> 
+            <span class="list__title">{{(post$|async)?.comments?.length}} Comments</span>
+            <li *ngFor="let comment of (post$ | async)?.comments" >
+                <detail-comment commentAuthor="{{comment?.username}}" commentDate="{{comment?.date}}" commentText="{{comment?.comment}}"></detail-comment>
+            </li>
+        </ul> 
+    </ng-template>
+    <ng-template #error>No comments</ng-template>
+</div>

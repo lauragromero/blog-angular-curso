@@ -1,0 +1,10 @@
+
+<grid-layout>
+    <div *ngFor="let post of (allPost$ | async)">
+        <post-component titlePost="{{post.title}}" usernamePost="{{post.username}}" 
+        nicknamePost="{{post.title}}" datePost="{{post.date}}" textPost="{{post.text}}" (selectPost)="onSelect(post._id)"></post-component>
+    </div>
+</grid-layout>
+
+
+

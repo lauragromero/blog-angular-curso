@@ -1,0 +1,41 @@
+<div class="login__container">
+<div class="form__container loginForm">
+    <span>Already got an Account?</span>
+    <form  class="form" [formGroup]= "logingForm">
+        <label for="usernameLog">Username:</label>
+        <input  name="usernameLog" type= "text" formControlName= "username"/>
+        <app-error-messages [control]="logingForm.get('username')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+        <label for="passwordLog">Password:</label>
+        <input name="passwordLog" type= "password" formControlName = "password"/>
+        <app-error-messages [control]="logingForm.get('password')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+        <button (click)= "login()" [disabled]= "!logingForm.valid">Login</button>
+    </form>
+</div>
+
+<div *ngIf="isSignin; then show else hidden"></div>
+<ng-template #show>
+    <div class="form__container signinForm">
+        <span>Create An Account</span>
+        <form class="form" [formGroup]= "signInForm" autocomplete="off">
+            <label for="username">Username:</label>
+            <input  name= "username" type= "text" formControlName= "username"/> 
+            <app-error-messages [control]="signInForm.get('username')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+            <label for="username">Nickname:</label>
+            <input name="nickname" type= "text" formControlName= "nickname"/>
+            <app-error-messages [control]="signInForm.get('nickname')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+            <label for="password">Password</label>
+            <input  name= "password" type= "password" formControlName = "password"/>
+            <app-error-messages [control]="signInForm.get('password')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+            <button type="submit" (click)= "createUser()" [disabled]= "!signInForm.valid">Create An Account</button>
+
+        </form>
+    </div>
+    </ng-template>
+    <ng-template #hidden> 
+        <div class="message__success">
+            <span class="message__tick">&#10004;</span>
+            <span>Registration Successful!</span>
+            <span>Please Login!</span>
+    </div> 
+    </ng-template>  
+</div>

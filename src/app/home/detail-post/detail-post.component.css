@@ -1,0 +1,25 @@
+:host{
+    width: 100%;
+    background-color: blue;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.detail__container{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detail__list{
+    list-style: none;
+    padding: 0;
+}
+
+.list__title{
+    display: block;
+    background-color: black;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    padding: 5px;
+}

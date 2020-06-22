@@ -1,0 +1,98 @@
+:host {
+  display: block;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  }
+
+.login__container{
+  max-width: 800px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.form__container{
+  background-color: rgb(241, 238, 238);
+  border-radius: 10px;
+  width: 350px;
+
+}
+
+.form__container span{
+  display: inline-block;
+  height: 40px;
+  padding: 10px;
+  width: 100%;
+  color: white;
+  background-color: rgb(29, 28, 28);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  
+}
+
+.form input{
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form button{
+  margin-top: 25px;
+  border-radius: 5px;
+  width: 310px;
+  height: 30px;
+  background-color: rgb(136, 185, 146);
+  border: none;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form button:hover{
+  background-color: transparent;
+  border: 2px solid rgb(136, 185, 146);
+  color: rgb(136, 185, 146);
+}
+
+.form button:disabled {
+  opacity: 0.5;
+}
+.loginForm{
+  height: auto;
+  max-height: 310px;
+}
+
+.signinForm{
+  height: auto;
+  min-height: 380px;
+}
+
+.message__success{
+  border-radius: 10px;
+  text-transform: uppercase;
+  width: 350px;
+  background-color:rgb(136, 185, 146) ;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.message__success span{
+  margin: 10px auto;
+}
+.message__tick{
+  font-size: 60px;
+}

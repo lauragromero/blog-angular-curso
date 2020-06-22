@@ -1,0 +1,34 @@
+<div class="edit__post-container">
+    <div class="postDetail" style=" margin-bottom: 2em; margin-top: 1em;">
+        <button  pButton  style=" margin-bottom: 0.5em;" type="button" label="Post List" icon="pi pi-chevron-left" [routerLink]="['/admin']"></button>
+        <p-card header="{{(post$ | async)?.title | uppercase}}" subheader="{{(post$ | async)?.date | date: 'short'}}" 
+        styleClass="ui-card-shadow">
+            <h4> Author: {{(post$ | async)?.username}}</h4>
+            <p-fieldset legend="Text" [toggleable]="true">
+                <p>{{(post$ | async)?.text}}</p>
+            </p-fieldset>
+            <button pButton  style="margin-top: 0.7em;" type="button"  icon="pi pi-plus" label="New Comment" class="ui-button-rounded ui-button-success" type="button" (click)= "commentAdd()"></button>
+            <div *ngIf="isAdded" class="addComment">
+                <form style="margin-top: 1em;" class= "addComment" [formGroup]= "commentForm"> 
+                    <div class="ui-fluid">
+                        <div class="p-field">
+                            <label for="comment">Comment</label>
+                            <textarea [rows]="6" pInputTextarea autoResize="autoResize" name= "comment" type="text" formControlName= "comment"></textarea>
+                            <app-error-messages [control]="commentForm.get('comment')" class="invalid" [customErrors]="customErrorsMessages"></app-error-messages>
+                        </div>
+                        <button pButton  style="width: 10em; margin: 0 auto;" type="button" label="Add Comment" (click)="addComment()" [disabled]= "!commentForm.valid"></button>
+                    </div>
+                </form>
+            </div>  
+            <p-footer> 
+            
+            </p-footer>
+        </p-card>
+    </div>
+   
+    <div *ngIf="(post$|async)?.comments?.length>0; then okList else error"></div>
+        <ng-template #okList>
+           <app-comments [postUsername]="(post$ | async)?.username" [comments]="(post$ | async)?.comments"></app-comments> 
+        </ng-template>
+        <ng-template #error>No hay comentarios</ng-template>  
+ </div>

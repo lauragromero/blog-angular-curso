@@ -1,0 +1,60 @@
+
+<app-create-post></app-create-post>
+
+<p-table [columns]="cols" [value]="allPost$ |async" dataKey= "_id" expandableRows="true">
+    <ng-template pTemplate="header" let-columns >
+        <tr>
+            <th style="width: 2.7em"></th>
+            <th style="width: 9em" >Username</th>
+            <th style="width: 7em" >Nickname</th>
+            <th style="width: 11em" >Date</th>
+            <th style="width: 20em" >Title</th>
+            <th style="width: 11.5em">Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-rowData let-post let-columns="columns" let-expanded="expanded">
+        <tr>
+            <td>
+                <a href="#" [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'pi pi-minus-circle' : 'pi pi-plus-circle'"></i>
+                </a>
+            </td>
+            <td>{{rowData.username}}</td>
+            <td>{{rowData.nickname}}</td>
+            <td>{{rowData.date | date: "short"}}</td>
+            <td>{{rowData.title | titlecase }}</td>
+            <td>
+                <button pButton type="button" style="margin-right: 0.5em;" label="Coments" class="ui-button-rounded" (click)="goToPostDetail(post._id)"></button>
+                <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" [disabled]=" (user|async)[0]?.username !== rowData.username && (user|async)[0]?.role !== 'admin'? true : false" (click)="deletePost(post._id)"></button></td>
+        </tr>
+    </ng-template>
+    <ng-template let-ri="rowIndex" let-post pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+            <td [attr.colspan]="columns.length + 2">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:10px">
+                    <div>
+                        <button pButton  icon="pi pi-pencil" type="button" [disabled]=" (user|async)[0]?.username !== rowData.username && (user|async)[0]?.role !== 'admin'? true : false"
+                    (click)= "editPost(post._id, $event)"></button>
+                        <h3>{{rowData.title | titlecase }}</h3>
+                        <p>{{rowData.text}}</p>
+                    </div>
+                </div>
+            <div *ngIf="isEdit" class="edit" >
+             <form class= "edit" [formGroup]= "updateForm">
+                    <div class="ui-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12">
+                            <label for="title">Title</label>
+                            <input id="title" type="text" size="50" pInputText formControlName= "title"/> 
+                        </div>
+                        <div class="p-field p-col-12">
+                            <label for="text">Text</label>
+                            <textarea [rows]="8" [cols]="50" pInputTextarea autoResize="autoResize" name= "text" type="text" formControlName= "text"></textarea>
+                        </div>
+                        <button pButton  class= "p-col-12" style="width: 10em; margin: 0 auto;" type="button" label="Update Post" (click)="updatePost(post._id)"></button>
+                    </div>
+                </form>
+             </div> 
+        </td>
+    </tr>    
+    </ng-template>
+</p-table>
